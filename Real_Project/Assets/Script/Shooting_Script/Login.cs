@@ -23,7 +23,7 @@ public class Login : MonoBehaviour
     TMP_InputField PWD_IN;
 
     [SerializeField]
-    Text infoText;
+    TextMeshProUGUI infoText_2;
 
     [SerializeField]
     GameObject Popup;
@@ -69,7 +69,7 @@ public class Login : MonoBehaviour
           (www.result == UnityWebRequest.Result.ProtocolError) ||
           (www.result == UnityWebRequest.Result.DataProcessingError))
         {
-            infoText.text = www.error + '\n' + www.downloadHandler.text;
+            infoText_2.text = www.error + '\n' + www.downloadHandler.text;
             Popup_X.SetActive(true);
             yield return null;
 
@@ -77,7 +77,7 @@ public class Login : MonoBehaviour
         }
         else
         {
-            infoText.text = www.downloadHandler.text;
+            infoText_2.text = www.downloadHandler.text;
             Popup_X.SetActive(true);
             yield return null;
         }
@@ -102,7 +102,7 @@ public class Login : MonoBehaviour
            (www.result == UnityWebRequest.Result.ProtocolError) ||
            (www.result == UnityWebRequest.Result.DataProcessingError))
         {
-            infoText.text = www.error + '\n' + www.downloadHandler.text;
+            infoText_2.text = www.error + '\n' + www.downloadHandler.text;
             Popup_X.SetActive(true);
             yield return null;
 
@@ -111,16 +111,14 @@ public class Login : MonoBehaviour
         else
         {
             Login_Success data = JsonUtility.FromJson<Login_Success>(www.downloadHandler.text);
-            Debug.Log(data.user_info.keycode);
-            Debug.Log(data.user_info.id);
-            infoText.text = data.success_message;
+
+            infoText_2.text = data.success_message;
             Popup_X.SetActive(true);
             yield return null;
             PlayerPrefs.SetInt("keycode", data.user_info.keycode);
             PlayerPrefs.SetString("id", data.user_info.id);
             PlayerPrefs.Save();
-            yield break;
-            //RadialProgress.LoadScene("Scene2");
+            LoadingProgress.LoadScene("TengaiScene");
         }
     }
 
@@ -128,14 +126,14 @@ public class Login : MonoBehaviour
     {
         while(true)
         {
-            infoText.text = "로딩 중....";
-            yield return new WaitForSeconds(0.3f);
+            infoText_2.text = "로딩 중....";
+            yield return new WaitForSeconds(0.15f);
 
-            infoText.text = "로딩 중......";
-            yield return new WaitForSeconds(0.3f);
+            infoText_2.text = "로딩 중......";
+            yield return new WaitForSeconds(0.15f);
 
-            infoText.text = "로딩 중........";
-            yield return new WaitForSeconds(0.3f);
+            infoText_2.text = "로딩 중........";
+            yield return new WaitForSeconds(0.15f);
         }
     }
 
