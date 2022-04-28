@@ -57,10 +57,31 @@ public class Login : MonoBehaviour
     }
     IEnumerator ServerLogout()
     {
+        Popup.SetActive(true);
+        StartCoroutine("Wait_Load");
+
         UnityWebRequest www = UnityWebRequest.Get("http://localhost:3000/log_out");
         yield return www.SendWebRequest();
 
-        Debug.Log(www);
+        StopCoroutine("Wait_Load");
+
+        if ((www.result == UnityWebRequest.Result.ConnectionError) ||
+          (www.result == UnityWebRequest.Result.ProtocolError) ||
+          (www.result == UnityWebRequest.Result.DataProcessingError))
+        {
+            infoText.text = www.error + '\n' + www.downloadHandler.text;
+            Popup_X.SetActive(true);
+            yield return null;
+
+            yield break;
+        }
+        else
+        {
+            infoText.text = www.downloadHandler.text;
+            Popup_X.SetActive(true);
+            yield return null;
+        }
+        yield break;
     }
     IEnumerator ServerLogin()
     {
