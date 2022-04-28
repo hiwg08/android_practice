@@ -1,6 +1,3 @@
-# 2022-1-OSSP2-Bumeok_Jjikmeok-6
-2022년 1학기 공개SW프로젝트 02분반 6조 부먹찍먹
-
 ## 서버 구동 방법
 1. cmd 창을 열고 clone한 폴더로 이동하세요. (cmd 창에 "cd <해당 파일 경로>" 입력) (visual studio code 사용 유저는 해당 폴더를 경로로 vscode를 연 후 ctrl + `를 입력하여 나오는 터미널 창에서 명령어를 바로 입력할 수 있습니다.)
 2. mysql을 설치하고, cmd 창을 하나 더 열어 본인의 mysql로 접속합니다. (1. mysql -uroot -p / 2.mysql을 설치하면서 설정한 비밀번호 입력)
