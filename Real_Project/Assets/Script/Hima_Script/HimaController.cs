@@ -110,12 +110,12 @@ public class HimaController : MonoBehaviour {
 		transform.localRotation = Quaternion.Euler(0f, facingRight ? 0f : 180f, 0f);
 	}
 
-	void OnCollisionEnter2D(Collision2D col) {
+	//void OnCollisionEnter2D(Collision2D col) {
 
-		if (col.gameObject.CompareTag("Trap")) {
-			Die();
-		}
-	}
+	//	if (col.gameObject.CompareTag("Trap")) {
+	//		Die();
+	//	}
+	//}
 
 	void OnTriggerEnter2D(Collider2D col) {
 		Debug.Log(LayerMask.LayerToName(col.gameObject.layer));
