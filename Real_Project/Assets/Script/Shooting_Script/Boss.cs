@@ -134,32 +134,32 @@ public class Boss : HP_Info
 
         UnBeatable = false;
         yield return YieldInstructionCache.WaitForEndOfFrame;
-        //while (true)
-        //{
-        //    yield return StartCoroutine(Ready_To_Phase());
-        //    int Random_Num = Random.Range(0, 5);
+        while (true)
+        {
+            yield return StartCoroutine(Ready_To_Phase());
+            int Random_Num = Random.Range(0, 5);
 
-        //    switch (Random_Num)
-        //    {
-        //        case 0:
-        //            Phase_Total[Random_Num] = Phase01();
-        //            break;
-        //        case 1:
-        //            Phase_Total[Random_Num] = Phase02();
-        //            break;
-        //        case 2:
-        //            Phase_Total[Random_Num] = Phase03();
-        //            break;
-        //        case 3:
-        //            Phase_Total[Random_Num] = Phase04();
-        //            break;
-        //        case 4:
-        //            Phase_Total[Random_Num] = Phase05();
-        //            break;
-        //    }
-        //    yield return StartCoroutine((IEnumerator)Phase_Total[Random_Num]);
-        //}
-        yield return StartCoroutine(Phase05());
+            switch (Random_Num)
+            {
+                case 0:
+                    Phase_Total[Random_Num] = Phase01();
+                    break;
+                case 1:
+                    Phase_Total[Random_Num] = Phase02();
+                    break;
+                case 2:
+                    Phase_Total[Random_Num] = Phase03();
+                    break;
+                case 3:
+                    Phase_Total[Random_Num] = Phase04();
+                    break;
+                case 4:
+                    Phase_Total[Random_Num] = Phase05();
+                    break;
+            }
+            yield return StartCoroutine((IEnumerator)Phase_Total[Random_Num]);
+        }
+        //yield return StartCoroutine(Phase01());
     }
     IEnumerator Ready_To_Phase()
     {
@@ -202,6 +202,8 @@ public class Boss : HP_Info
 
         yield return YieldInstructionCache.WaitForSeconds(2f);
         Destroy(L1); Destroy(L2); Destroy(L3); Destroy(L4);
+        IEnumerator thunder = GameObject.FindGameObjectWithTag("Flash").GetComponent<FlashOn>().Thunder();
+        StartCoroutine(thunder);
 
         GameObject L5 = Instantiate(Boss_Weapon[2], new Vector3(0, 3, 0), Quaternion.Euler(new Vector3(0, 0, -9)));
         GameObject L6 = Instantiate(Boss_Weapon[2], new Vector3(0, -4, 0), Quaternion.Euler(new Vector3(0, 0, -9)));
@@ -211,12 +213,13 @@ public class Boss : HP_Info
         yield return YieldInstructionCache.WaitForSeconds(2.5f);
         Destroy(L5); Destroy(L6); Destroy(L7); Destroy(L8);
         StopCoroutine(change_boss_color);
-
+        GameObject.FindGameObjectWithTag("Flash").GetComponent<FlashOn>().Origin();
+        StopCoroutine(thunder);
         percent = 0;
         Vector3 temp_location = transform.position;
         while (percent < 1)
         {
-            percent += Time.deltaTime * 2;
+            percent += Time.deltaTime;
             transform.position = Vector3.Lerp(temp_location, new Vector3(7, 0, 0), curve.Evaluate(percent));
             yield return YieldInstructionCache.WaitForEndOfFrame;
         }
