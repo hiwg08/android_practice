@@ -6,10 +6,10 @@ public class SolGryn_Weapon : MonoBehaviour
 {
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
-        {
-            collision.GetComponent<HimaController>().Die();
-        }
+        //if (collision.CompareTag("Player"))
+        //{
+        //    collision.GetComponent<HimaController>().Die();
+        //}
     }
     void Start()
     {

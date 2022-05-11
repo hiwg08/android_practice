@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using TMPro;
 
-public class HimaController : MonoBehaviour {
+public class HimaController : Player_Info {
 
 	[HideInInspector]
 	public bool facingRight = true;
@@ -32,13 +33,15 @@ public class HimaController : MonoBehaviour {
 	private int groundLayerMask;
 
 	// Use this for initialization
-	void Awake() {
+	private new void Awake() 
+	{
 		anim = GetComponent<Animator>();
 		rb2d = GetComponent<Rigidbody2D>();
 		groundLayerMask = 1 << LayerMask.NameToLayer("Ground");
 	}
 
-	void Start() {
+	void Start() 
+	{
 		StartCoroutine(Load());
 	}
 
@@ -100,8 +103,12 @@ public class HimaController : MonoBehaviour {
 		return hit.collider != null;
 	}
 
-	void FixedUpdate() {
+    public override void TakeDamage(int damage)
+    {
+		OnDie();
+    }
 
+    void FixedUpdate() {
 		
 		if (isMove)
 			h = Input.GetAxisRaw("Horizontal");
@@ -154,7 +161,7 @@ public class HimaController : MonoBehaviour {
 
 		if (isInsideGround())
 		{
-			Die();
+			OnDie();
 		}
 	}
 
@@ -170,9 +177,8 @@ public class HimaController : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D col) {
 		Debug.Log(LayerMask.LayerToName(col.gameObject.layer));
 	}
-
-	public void Die() {
-		Destroy(gameObject);
-		//Instantiate(deathParticle, transform.position, Quaternion.identity);
-	}
+    public override void OnDie()
+    {
+		base.OnDie();
+    }
 }
