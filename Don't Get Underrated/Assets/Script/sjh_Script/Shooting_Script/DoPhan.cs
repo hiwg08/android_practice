@@ -63,7 +63,7 @@ public class DoPhan : Boss_Info
     }
     IEnumerator Hit()
     {
-        camera_shake = cameraShake.Shake_Act(.03f, .01f, 30, false);
+        camera_shake = cameraShake.Shake_Act(.03f, .01f, 0.03f, false);
         StartCoroutine(camera_shake);
 
         spriteRenderer.color = new Color(1, 1, 1, 0.25f);

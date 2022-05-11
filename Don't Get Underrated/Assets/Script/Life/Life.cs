@@ -33,7 +33,7 @@ public class Life : MonoBehaviour, Life_Of_Basic
 
     protected FlashOn flashOn;
 
-    private float percent;
+    protected float percent;
 
     protected float Plus_Speed;
 
@@ -218,7 +218,7 @@ public class Life : MonoBehaviour, Life_Of_Basic
             transform.position = Vector3.Slerp(riseRelCenter, setRelCenter, curve.Evaluate(percent));
 
             transform.position += center;
-            Plus_Speed += 0.0004f;
+            Plus_Speed += 0.0006f;
             yield return null;
         }
         yield return null;

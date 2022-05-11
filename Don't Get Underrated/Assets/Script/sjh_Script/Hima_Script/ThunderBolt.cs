@@ -10,7 +10,7 @@ public class ThunderBolt : Enemy_Info
     {
         base.Awake();
         flashOn = GameObject.Find("Flash").GetComponent<FlashOn>();
-        //cameraShake.mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
+        cameraShake.mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
     }
 
 
@@ -23,12 +23,27 @@ public class ThunderBolt : Enemy_Info
     {
         
         //yield return StartCoroutine(Position_Lerp(transform.position, new Vector3(transform.position.x, 0, 0), 0.5f, OriginCurve));
-        StartCoroutine(flashOn.White_Flash());
-        //camera_shake = cameraShake.Shake_Act(.05f, .26f, 1, false);
-        //StartCoroutine(camera_shake);
-        //Destroy(gameObject);
+        StartCoroutine(flashOn.Flash(new Color(1, 1, 1, 1), 0.1f, 7));
+        camera_shake = cameraShake.Shake_Act(.1f, .26f, 0.3f, false);
+        StartCoroutine(camera_shake);
+        
         yield return null;
     }
+
+    public void DestroyNow()
+    {
+
+       // StartCoroutine(I_DestroyNow());
+        Destroy(gameObject);
+    }
+
+    //IEnumerator I_DestroyNow()
+    //{
+    //    // return YieldInstructionCache.WaitForSeconds(2f);
+      
+    //}
+
+    
 
     // Update is called once per frame
     void Update()

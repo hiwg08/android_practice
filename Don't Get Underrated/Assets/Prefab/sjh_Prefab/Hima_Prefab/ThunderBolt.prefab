@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8258880018722312145}
   - component: {fileID: 8258880018722312146}
   - component: {fileID: 940088953469745265}
+  - component: {fileID: -2261537564998828096}
   m_Layer: 0
   m_Name: ThunderBolt
   m_TagString: Untagged
@@ -286,3 +287,16 @@ MonoBehaviour:
     m_RotationOrder: 4
   When_Dead_Effect: {fileID: 0}
   stageData: {fileID: 0}
+--- !u!114 &-2261537564998828096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8258880018722312147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05b52193e13c3f24e80f721dc4a9fb15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainCamera: {fileID: 0}

@@ -39,7 +39,8 @@ public class SolGryn : Boss_Info
     }
     public void WelCome()
     {
-        StartCoroutine(I_WelCome());
+        // StartCoroutine(I_WelCome());
+        StartCoroutine(Boss_Pattern());
     }
     IEnumerator I_WelCome()
     {
@@ -83,8 +84,8 @@ public class SolGryn : Boss_Info
 
         yield return StartCoroutine(First_Move());
         
-        yield return StartCoroutine(Pattern_1());
-        yield return StartCoroutine(Pattern_2());
+        //yield return StartCoroutine(Pattern_1());
+       // yield return StartCoroutine(Pattern_2());
         yield return StartCoroutine(Pattern_3());
         //yield return StartCoroutine(Pattern_4());
     }
@@ -103,16 +104,39 @@ public class SolGryn : Boss_Info
 
         yield return YieldInstructionCache.WaitForSeconds(0.5f);
         yield return StartCoroutine(Position_Lerp(transform.position, new Vector3(transform.position.x, transform.position.y - 3, 0), 1, inclineCurve));
-        yield return StartCoroutine(Position_Lerp(transform.position, new Vector3(transform.position.x, transform.position.y + 9, 0), 1, declineCurve));
+        yield return StartCoroutine(Position_Lerp(transform.position, new Vector3(transform.position.x, 11, 0), 1, declineCurve));
 
         Instantiate(Weapon[4], new Vector3(2.52f, -8.31f, 0), Quaternion.identity);
-        yield return YieldInstructionCache.WaitForSeconds(1);
+        yield return YieldInstructionCache.WaitForSeconds(1.4f);
 
         Instantiate(Weapon[4], new Vector3(0, -8.31f, 0), Quaternion.identity);
-        yield return YieldInstructionCache.WaitForSeconds(1);
+        yield return YieldInstructionCache.WaitForSeconds(1.4f);
 
         Instantiate(Weapon[4], new Vector3(-2.52f, -8.31f, 0), Quaternion.identity);
         yield return YieldInstructionCache.WaitForSeconds(1);
+
+        GameObject W1 = Instantiate(Weapon[3], transform.position, Quaternion.identity);
+        W1.GetComponent<DynaBlade>().Dyna_Start(false);
+        yield return YieldInstructionCache.WaitForSeconds(1.5f);
+
+        cameraShake.mainCamera.transform.position = new Vector3(0, 0, -10);
+        cameraShake.mainCamera.transform.rotation = Quaternion.identity;
+        cameraShake.mainCamera.transform.localScale = new Vector3(1, 1, 1);
+        yield return null;
+        GameObject W2 = Instantiate(Weapon[3], transform.position, Quaternion.identity);
+        W2.GetComponent<DynaBlade>().Dyna_Start(true);
+        yield return YieldInstructionCache.WaitForSeconds(1.5f);
+
+        cameraShake.mainCamera.transform.position = new Vector3(0, 0, -10);
+        cameraShake.mainCamera.transform.rotation = Quaternion.identity;
+        cameraShake.mainCamera.transform.localScale = new Vector3(1, 1, 1);
+        yield return null;
+        GameObject W3 = Instantiate(Weapon[3], transform.position, Quaternion.identity);
+        GameObject W4 = Instantiate(Weapon[3], transform.position, Quaternion.identity);
+        W3.GetComponent<DynaBlade>().Dyna_Start(false);
+        W4.GetComponent<DynaBlade>().Dyna_Start(true);
+        yield return YieldInstructionCache.WaitForSeconds(2);
+
     }
     IEnumerator Pattern_4()
     {
@@ -146,7 +170,7 @@ public class SolGryn : Boss_Info
 
         for (int i = 0; i < 7; i++)
         {
-            StartCoroutine(cameraShake.Shake_Act(.07f, .2f, 10, false));
+            StartCoroutine(cameraShake.Shake_Act(.07f, .2f, 0.1f, false));
             StartCoroutine(Boss_W1(72 + (i * 20), 25, 360));
             yield return new WaitForSeconds(0.6f);
         }
@@ -169,7 +193,7 @@ public class SolGryn : Boss_Info
        
         for (int i = 0; i < 6; i++)
         {
-            StartCoroutine(cameraShake.Shake_Act(.07f, .2f, 10, false));
+            StartCoroutine(cameraShake.Shake_Act(.07f, .2f, 0.2f, false));
 
             StartCoroutine(Boss_W1(110 + (i * 20), 30, 360));
             yield return new WaitForSeconds(0.4f); // Åº¾Ë ¹ß»ç

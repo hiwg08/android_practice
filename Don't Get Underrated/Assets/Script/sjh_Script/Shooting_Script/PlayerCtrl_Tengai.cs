@@ -181,7 +181,7 @@ public class PlayerCtrl_Tengai : Player_Info
 
         Destroy(Emit_Obj_Copy);
 
-        StartCoroutine(flashOn.White_Flash());
+        StartCoroutine(flashOn.Flash(new Color(1, 1, 1, 1), 0.1f, 5));
 
         GameObject.FindGameObjectWithTag("Boss").GetComponent<DoPhan>().Stop_Meteor();
 
