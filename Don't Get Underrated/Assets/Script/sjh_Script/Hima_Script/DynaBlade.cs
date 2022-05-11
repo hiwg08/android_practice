@@ -23,14 +23,14 @@ public class DynaBlade : Enemy_Info
     void Start()
     {
         transform.position = new Vector3(6.97f, 2.77f, 0);
-        transform.localScale = new Vector3(0.3f, 0.3f, 0);
+        transform.localScale = new Vector3(0.1f, 0.1f, 0);
         StartCoroutine(Move());
     }
    
 
     IEnumerator Move() // 루트3 / 2 (0.85)로 끝맺음 짓는게 좋다.
     {
-        IEnumerator size = Size_Change_Infinite(1.3f);
+        IEnumerator size = Size_Change_Infinite(1.2f);
         StartCoroutine(size);
         Plus_Speed = 0;
         
@@ -68,6 +68,7 @@ public class DynaBlade : Enemy_Info
        // StartCoroutine(camera_shake);
         yield return StartCoroutine(Position_Slerp_Temp(D[4], D[5], Get_Center_Vector(D[4], D[5], Vector3.Distance(D[4], D[5]) * 0.85f, "anti_clock"), W/A * 20f, OriginCurve, true));
         //StopCoroutine(size);
+        Destroy(gameObject);
     }
     // Update is called once per frame
     void Update()

@@ -10,6 +10,7 @@ public class ThunderBolt : Enemy_Info
     {
         base.Awake();
         flashOn = GameObject.Find("Flash").GetComponent<FlashOn>();
+        //cameraShake.mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
     }
 
 
@@ -20,10 +21,12 @@ public class ThunderBolt : Enemy_Info
 
     IEnumerator Move()
     {
-        yield return StartCoroutine(Position_Lerp(transform.position, new Vector3(transform.position.x, 0, 0), 0.5f, OriginCurve));
-        camera_shake = cameraShake.Shake_Act(.05f, .26f, 1, false);
-        StartCoroutine(camera_shake);
+        
+        //yield return StartCoroutine(Position_Lerp(transform.position, new Vector3(transform.position.x, 0, 0), 0.5f, OriginCurve));
         StartCoroutine(flashOn.White_Flash());
+        //camera_shake = cameraShake.Shake_Act(.05f, .26f, 1, false);
+        //StartCoroutine(camera_shake);
+        //Destroy(gameObject);
         yield return null;
     }
 

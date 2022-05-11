@@ -180,7 +180,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9bbc7806a1798c4cbfe4e139ae7b8ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Weapon: []
+  Weapon:
+  - {fileID: 8258880018722312147, guid: 59519b5a64e64174b964f60dfbc56952, type: 3}
   declineCurve:
     serializedVersion: 2
     m_Curve:

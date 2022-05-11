@@ -99,19 +99,19 @@ public class SolGryn : Boss_Info
     IEnumerator Pattern_3()
     {
         transform.rotation = Quaternion.Euler(0, 0, 0);
-        cameraShake.Shake_Act(.035f, .2f, 3f, false);
+        cameraShake.Shake_Act(.9f, .6f, 1, false);
 
         yield return YieldInstructionCache.WaitForSeconds(0.5f);
         yield return StartCoroutine(Position_Lerp(transform.position, new Vector3(transform.position.x, transform.position.y - 3, 0), 1, inclineCurve));
         yield return StartCoroutine(Position_Lerp(transform.position, new Vector3(transform.position.x, transform.position.y + 9, 0), 1, declineCurve));
 
-        Instantiate(Weapon[3], new Vector3(2.52f, -8.31f, 0), Quaternion.identity);
+        Instantiate(Weapon[4], new Vector3(2.52f, -8.31f, 0), Quaternion.identity);
         yield return YieldInstructionCache.WaitForSeconds(1);
 
-        Instantiate(Weapon[3], new Vector3(0, -8.31f, 0), Quaternion.identity);
+        Instantiate(Weapon[4], new Vector3(0, -8.31f, 0), Quaternion.identity);
         yield return YieldInstructionCache.WaitForSeconds(1);
 
-        Instantiate(Weapon[3], new Vector3(-2.52f, -8.31f, 0), Quaternion.identity);
+        Instantiate(Weapon[4], new Vector3(-2.52f, -8.31f, 0), Quaternion.identity);
         yield return YieldInstructionCache.WaitForSeconds(1);
     }
     IEnumerator Pattern_4()

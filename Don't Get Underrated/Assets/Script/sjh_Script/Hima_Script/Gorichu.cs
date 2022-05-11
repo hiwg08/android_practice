@@ -15,16 +15,15 @@ public class Gorichu : Enemy_Info
     {
         base.Awake();
         D = new Dictionary<int, Vector3>();
-        D.Add(0, Spawn_Position);
-        D.Add(1, new Vector3(Spawn_Position.x, 3, 0));
-        D.Add(2, Spawn_Position);
+       
     }
 
     void Start()
     {
-        transform.position = Spawn_Position;
         transform.localScale = new Vector3(0.6f, 0.6f, 0);
-        StartCoroutine(Move());
+        D.Add(0, transform.position);
+        D.Add(1, new Vector3(transform.position.x, 3, 0));
+        D.Add(2, transform.position);
         StartCoroutine(Move());
     }
     IEnumerator Move() // 루트3 / 2 (0.85)로 끝맺음 짓는게 좋다.
@@ -37,7 +36,7 @@ public class Gorichu : Enemy_Info
         StartCoroutine(size);
         yield return StartCoroutine(Position_Lerp(D[1], D[2], 1f, declineCurve));
         StopCoroutine(size);
-        Instantiate(Weapon[0], new Vector3(transform.position.x, 11, 0), Quaternion.identity);
+        Instantiate(Weapon[0], new Vector3(transform.position.x, 0, 0), Quaternion.identity);
     }
 
     // Update is called once per frame
