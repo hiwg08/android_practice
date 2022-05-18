@@ -136,14 +136,5 @@ public class Boss_Info : Life
         }
     }
 
-    void Start()
-    {
 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 }

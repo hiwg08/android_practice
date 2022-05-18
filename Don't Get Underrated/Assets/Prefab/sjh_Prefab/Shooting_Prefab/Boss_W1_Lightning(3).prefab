@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4530813659655592400}
   - component: {fileID: -824944830412944213}
   m_Layer: 0
-  m_Name: Boss_W4_Lightning(3)
+  m_Name: Boss_W1_Lightning(3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

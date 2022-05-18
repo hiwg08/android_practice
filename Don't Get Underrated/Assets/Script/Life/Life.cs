@@ -60,10 +60,7 @@ public class Life : MonoBehaviour, Life_Of_Basic
     {
         Destroy(gameObject);
     }
-    void Start()
-    {
-        
-    }
+
 
     protected void Launch_Weapon_For_Move(GameObject weapon, Vector3 target, Vector3 self)
     {

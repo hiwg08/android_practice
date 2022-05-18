@@ -7,11 +7,18 @@ public class SolGryn : Boss_Info
     // Start is called before the first frame update
 
     // Update is called once per frame
-    
+
+    // <a href='https://kr.freepik.com/vectors/light'>Light 벡터는 upklyak - kr.freepik.com가 제작함</a>
+
     [SerializeField]
     GameObject SolGryn_HP;
 
+    [SerializeField]
+    GameObject PalJeongDo_Thunder;
+
     HimaController himaController;
+
+    BackGroundColor PalJeongDo;
 
     float[,] move_random =
     {
@@ -27,20 +34,53 @@ public class SolGryn : Boss_Info
         CurrentHP = MaxHP;
         
         backGroundColor = GameObject.Find("Flash").GetComponent<BackGroundColor>();
+        PalJeongDo = GameObject.Find("PalJeongDo").GetComponent<BackGroundColor>();
+        PalJeongDo.Set_BGColor(new Color(1, 1, 1, 0));
         himaController = GameObject.FindGameObjectWithTag("Player").GetComponent<HimaController>();
         SolGryn_HP.SetActive(false);
         transform.position = new Vector3(0, -15.81f, 0);
-        transform.localScale = new Vector3(6, 6, 0);
-    }
-
-    void Start()
-    {
-     
+        transform.localScale = new Vector3(1.5f, 1.5f, 0);
     }
     public void WelCome()
     {
         // StartCoroutine(I_WelCome());
-        StartCoroutine(Boss_Pattern());
+        //StartCoroutine(Boss_Pattern());
+        StartCoroutine(TeoKisis());
+    }
+    IEnumerator TeoKisis()
+    {
+        //yield return StartCoroutine(Position_Lerp(new Vector3(0, 7, 0), new Vector3(0, 0, 0), 7f, declineCurve));
+        //yield return YieldInstructionCache.WaitForSeconds(1f);
+        //camera_shake = cameraShake.Shake_Act(.01f, .01f, 1, true);
+        //StartCoroutine(camera_shake); // 등장할 때 한번 흔들어 재껴줘야함
+        //yield return StartCoroutine(Change_Color_Return_To_Origin(Color.white, new Color(1, 69 / 255, 69 / 255, 1), 1, false));
+        //StopCoroutine(camera_shake);
+
+        //GameObject a = Instantiate(Weapon[5], transform.position, Quaternion.identity);
+        //GameObject b = Instantiate(Weapon[5], transform.position, Quaternion.identity);
+        //GameObject c = Instantiate(Weapon[5], transform.position, Quaternion.identity);
+        //GameObject d = Instantiate(Weapon[5], transform.position, Quaternion.identity);
+
+        //a.GetComponent<SolGryn_Copy>().Move_Lerp_Distance(new Vector3(7, 2.5f, 0));
+        //b.GetComponent<SolGryn_Copy>().Move_Lerp_Distance(new Vector3(7, -2.5f, 0));
+        //c.GetComponent<SolGryn_Copy>().Move_Lerp_Distance(new Vector3(-7, 2.5f, 0));
+        //d.GetComponent<SolGryn_Copy>().Move_Lerp_Distance(new Vector3(-7, -2.5f, 0));
+        //yield return YieldInstructionCache.WaitForSeconds(2f);
+
+        yield return StartCoroutine(backGroundColor.Change_Color(new Color(1, 1, 1, 0), new Color(1, 1, 1, 1), 1));
+        yield return StartCoroutine(PalJeongDo.Change_Color(PalJeongDo.Get_BGColor(), new Color(1, 1, 1, 1), 1));
+        StartCoroutine(backGroundColor.Change_Color(new Color(1, 1, 1, 1), new Color(1, 1, 1, 0), 2));
+
+        
+        yield return YieldInstructionCache.WaitForSeconds(1f);
+        //GameObject.Find("Flash").transform.SetAsLastSibling();
+
+        Instantiate(PalJeongDo_Thunder, transform.position, Quaternion.identity);
+
+        yield return StartCoroutine(backGroundColor.Change_Color(new Color(1, 1, 1, 0), new Color(1, 1, 1, 1), 0.5f));
+        StartCoroutine(PalJeongDo.Change_Color(PalJeongDo.Get_BGColor(), new Color(1, 0, 0, 1), 0.5f));
+        yield return StartCoroutine(backGroundColor.Change_Color(new Color(1, 1, 1, 1), new Color(1, 1, 1, 0), 0.5f));
+        yield return null;
     }
     IEnumerator I_WelCome()
     {
@@ -283,9 +323,5 @@ public class SolGryn : Boss_Info
             Launch_Weapon_For_Move(Weapon[0], new Vector3(x, y), Quaternion.identity, 2f);
         }
         yield return null;
-    }
-    void Update()
-    {
-
     }
 }
