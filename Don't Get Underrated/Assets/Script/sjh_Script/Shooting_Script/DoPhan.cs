@@ -109,7 +109,7 @@ public class DoPhan : Boss_Info
 
     IEnumerator Boss_Apprearance()
     {
-        StartCoroutine(Size_Change(transform.localScale, new Vector3(4, 4, 0), 5));
+        StartCoroutine(Size_Change(transform.localScale, new Vector3(4, 4, 0), 5, OriginCurve));
 
         transform.position = new Vector3(StaticData.DoPhan_Appearance_Move[0, 0], StaticData.DoPhan_Appearance_Move[0, 1], 0);
 
