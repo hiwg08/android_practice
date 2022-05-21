@@ -33,6 +33,8 @@ public class Life : MonoBehaviour, Life_Of_Basic
 
     protected BackGroundColor backGroundColor;
 
+    protected Movement2D movement2D;
+
     protected float percent;
 
     protected float Plus_Speed;
