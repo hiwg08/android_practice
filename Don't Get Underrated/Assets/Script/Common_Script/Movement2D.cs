@@ -40,7 +40,6 @@ public class Movement2D : MonoBehaviour
         moveDirection = direction;
     } // 흠.....MoveTo에서 위치를 딱 설정해주고
 
-    // Update is called once per frame
     void LateUpdate() // 여기서 위치를 이동시키는 거군
     {
         transform.position += moveDirection * moveSpeed * Time.deltaTime;
@@ -58,7 +57,6 @@ public class Movement2D : MonoBehaviour
         if (collision.gameObject != null && collision.gameObject.CompareTag("Player") && collision.gameObject.TryGetComponent(out HimaController user2))
         {
             user2.TakeDamage(1);
-           
         }
     }
 }

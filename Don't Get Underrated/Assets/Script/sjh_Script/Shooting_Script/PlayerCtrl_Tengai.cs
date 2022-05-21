@@ -8,8 +8,6 @@ public class PlayerCtrl_Tengai : Player_Info
 {
     // Start is called before the first frame update
 
-    Movement2D movement2D;
-
     [SerializeField]
     KeyCode keyCodeAttack = KeyCode.Space;
 
@@ -42,6 +40,8 @@ public class PlayerCtrl_Tengai : Player_Info
 
     bool is_Update = false;
 
+    bool is_Power_Up = false;
+
     bool boss_intend;
 
     IEnumerator emit_expand_circle, emit_change_size, i_start_emit, i_start_firing, color_when_unbeatable;
@@ -59,6 +59,7 @@ public class PlayerCtrl_Tengai : Player_Info
         movement2D.enabled = false;
         Unbeatable = true;
         boss_intend = false;
+        is_Power_Up = false;
         Final_Score = 0;
         //TalkPanel.SetActive(true);
 
@@ -122,7 +123,7 @@ public class PlayerCtrl_Tengai : Player_Info
     {
         if (Unbeatable)
             return;
-
+        Debug.Log("»Ï");
         LifeTime -= damage;
 
         Unbeatable = true;

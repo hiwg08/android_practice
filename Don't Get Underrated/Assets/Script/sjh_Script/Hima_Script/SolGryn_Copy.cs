@@ -28,7 +28,7 @@ public class SolGryn_Copy : Enemy_Info
 
     public void Launch_SoyBean()
     {
-        if (GameObject.FindGameObjectWithTag("Player"))
+        //if (GameObject.FindGameObjectWithTag("Player"))
             Instantiate(Weapon[0], transform.position, Quaternion.identity);
     }
     
