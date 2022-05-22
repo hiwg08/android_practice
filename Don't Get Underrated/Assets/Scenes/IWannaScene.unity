@@ -351,149 +351,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &488056094
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 488056096}
-  - component: {fileID: 488056095}
-  - component: {fileID: 488056097}
-  - component: {fileID: 488056098}
-  m_Layer: 0
-  m_Name: Circle
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!212 &488056095
-SpriteRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 488056094}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
---- !u!4 &488056096
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 488056094}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.66, y: 0.74, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &488056097
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 488056094}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f9b467ecd83fd248921041da2a6b491, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Weapon:
-  - {fileID: 3973205816281804693, guid: 21310b43b0eaeec42a3284e3b33e1712, type: 3}
-  declineCurve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  OriginCurve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  inclineCurve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  De_In_Curve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  When_Dead_Effect: {fileID: 0}
-  stageData: {fileID: 0}
---- !u!95 &488056098
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 488056094}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 9972485e0184f8d458c64353f1f19d31, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &588971327
 GameObject:
   m_ObjectHideFlags: 0
@@ -3018,7 +2875,7 @@ GameObject:
   - component: {fileID: 1770839860}
   m_Layer: 0
   m_Name: SolGryn
-  m_TagString: SolGryn
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3109,8 +2966,12 @@ MonoBehaviour:
   - {fileID: 8745568730417475819, guid: d46cf5409297f524fb39680d95452e68, type: 3}
   - {fileID: 4417154464444090204, guid: 7356006f90232e14c97a729cfcf199c6, type: 3}
   - {fileID: 2487260719207055476, guid: b74f6fb3815b16242a4a619d2578f5bf, type: 3}
-  - {fileID: 3073001994871790477, guid: a6a91710b8deb62449df3a90dda867a9, type: 3}
+  - {fileID: 8166809296276297146, guid: a6a91710b8deb62449df3a90dda867a9, type: 3}
   - {fileID: 2175057711563460489, guid: 647381194a5e08949ad5ce02bc022c69, type: 3}
+  - {fileID: 6433505063697401142, guid: a667aac0115248647a18471f741dd11f, type: 3}
+  - {fileID: 5277196207872701063, guid: cc01f167dad5ca54093556d23e4a779e, type: 3}
+  - {fileID: 866910170712236353, guid: 4f6d4136ffc132f4cb63d742dc723d25, type: 3}
+  - {fileID: 3896185390735848561, guid: 59b3af432c4aa6a428895271c2b5a260, type: 3}
   declineCurve:
     serializedVersion: 2
     m_Curve:
@@ -3218,7 +3079,6 @@ MonoBehaviour:
   SolGryn_HP: {fileID: 736350206}
   PalJeongDo_Thunder: {fileID: 41213705268586981, guid: 34347b66b327a4743aaae32970a4a577, type: 3}
   Straw: {fileID: 2913166130661082141, guid: 918012be6f9b163449db45503a4f29f1, type: 3}
-  Time_Out_For_Damage: {fileID: 4448646271398032484, guid: 275581cea24400a40aadd9041b2943cb, type: 3}
 --- !u!114 &1770839857
 MonoBehaviour:
   m_ObjectHideFlags: 0

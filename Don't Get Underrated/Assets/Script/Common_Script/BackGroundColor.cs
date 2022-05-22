@@ -28,10 +28,6 @@ public class BackGroundColor : MonoBehaviour
     {
         image.color = new_c;
     }
-    void Start()
-    {
-        
-    }
 
     public IEnumerator Change_Color(Color origin_color, Color change_color, float ratio)
     {
@@ -99,10 +95,9 @@ public class BackGroundColor : MonoBehaviour
                 break;
         }
     }
-
-    // Update is called once per frame
-    void Update()
+    public void Stop_Coroutine()
     {
-        
+        image.color = new Color(1, 1, 1, 0);
+        StopAllCoroutines();
     }
 }

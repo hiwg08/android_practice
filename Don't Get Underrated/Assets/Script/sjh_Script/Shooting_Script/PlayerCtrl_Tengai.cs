@@ -203,8 +203,7 @@ public class PlayerCtrl_Tengai : Player_Info
 
         GameObject[] enemy = GameObject.FindGameObjectsWithTag("Enemy");
         GameObject[] meteor = GameObject.FindGameObjectsWithTag("Meteor");
-        GameObject[] meteor_line = GameObject.FindGameObjectsWithTag("Meteor_Line");
-        GameObject[] meteor_traffic = GameObject.FindGameObjectsWithTag("Meteor_Traffic");
+        GameObject[] weapon_devil = GameObject.FindGameObjectsWithTag("Weapon_Devil");
         foreach (var e in enemy)
         {
             Destroy(e);
@@ -213,11 +212,7 @@ public class PlayerCtrl_Tengai : Player_Info
         {
             Destroy(e);
         }
-        foreach (var e in meteor_line)
-        {
-            Destroy(e);
-        }
-        foreach (var e in meteor_traffic)
+        foreach (var e in weapon_devil)
         {
             Destroy(e);
         }

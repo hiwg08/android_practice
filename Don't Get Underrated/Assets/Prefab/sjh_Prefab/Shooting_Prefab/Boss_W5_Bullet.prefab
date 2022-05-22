@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 4324476858576521594}
   m_Layer: 0
   m_Name: Boss_W5_Bullet
-  m_TagString: Devil_Weapon
+  m_TagString: Weapon_Devil
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

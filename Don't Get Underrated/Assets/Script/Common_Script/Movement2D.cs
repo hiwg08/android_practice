@@ -9,24 +9,11 @@ public class Movement2D : MonoBehaviour
     float moveSpeed = 0.0f;
 
     bool is_Blink = false;
-
-    Animator animator;
-
-    private void Awake()
-    {
-        if (TryGetComponent(out Animator user))
-        {
-            animator = user;
-        }
-    }
-
     public bool Is_Blink
     {
         get { return is_Blink; }
         set { is_Blink = value; }
     }
-
-
     [SerializeField]
     Vector3 moveDirection = Vector3.zero; // 처음에야 이렇게 초기화 한건데, SerializeField 때문에 inspector 안에서도 수정이 가능하다
 

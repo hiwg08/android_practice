@@ -15,8 +15,6 @@ public class ThunderBolt : Weapon_Devil
         cameraShake = GetComponent<CameraShake>();
         cameraShake.mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
     }
-
-
     void Start()
     {
         StartCoroutine(Move());

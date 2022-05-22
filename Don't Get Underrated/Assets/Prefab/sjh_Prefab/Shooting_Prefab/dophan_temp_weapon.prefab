@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1043433220617109706}
   m_Layer: 0
   m_Name: dophan_temp_weapon
-  m_TagString: Untagged
+  m_TagString: Weapon_Devil
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

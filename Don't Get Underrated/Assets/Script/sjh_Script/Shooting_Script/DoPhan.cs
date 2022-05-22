@@ -95,18 +95,12 @@ public class DoPhan : Boss_Info
 
         GameObject[] enemy = GameObject.FindGameObjectsWithTag("Enemy");
         GameObject[] meteor = GameObject.FindGameObjectsWithTag("Meteor");
-        GameObject[] meteor_line = GameObject.FindGameObjectsWithTag("Meteor_Line");
-        GameObject[] meteor_traffic = GameObject.FindGameObjectsWithTag("Meteor_Traffic");
+        GameObject[] weapon_devil = GameObject.FindGameObjectsWithTag("Weapon_Devil");
         foreach (var e in enemy)
             Destroy(e);
-
         foreach (var e in meteor)
             Destroy(e);
-
-        foreach (var e in meteor_line)
-            Destroy(e);
-
-        foreach (var e in meteor_traffic)
+        foreach (var e in weapon_devil)
             Destroy(e);
 
         StopAllCoroutines();
@@ -206,6 +200,7 @@ public class DoPhan : Boss_Info
         yield return StartCoroutine(backGroundColor.Change_Color(backGroundColor.Get_BGColor(), new Color(1, 1, 1, 0), 1));
 
         Unbeatable = false;
+
         playerCtrl_Tengai.Unbeatable = false;
 
         for (int i = 0; i < 7; i++)
@@ -253,8 +248,6 @@ public class DoPhan : Boss_Info
         Unbeatable = true;
 
         yield return StartCoroutine(Change_Color_Return_To_Origin(Color.white, new Color(0, 0, 0, 1), 1, false));
-
-        
 
         Launch_Weapon_For_Move(Weapon[0], new Vector3(1, 0.5714f, 0), Quaternion.identity, 2.5f);
         Launch_Weapon_For_Move(Weapon[0], new Vector3(1, -0.5714f, 0), Quaternion.Euler(new Vector3(0, 0, -60)), 2.5f);
@@ -348,13 +341,13 @@ public class DoPhan : Boss_Info
     }
     IEnumerator Pattern02_Meteor_Down(int kuku)
     {
-        yield return YieldInstructionCache.WaitForSeconds(1f);
+        yield return YieldInstructionCache.WaitForSeconds(0.5f);
         for (int i = 0; i < 2 * (kuku + 1); i++)
         {
             int Rand = Random.Range(4, 9);
             GameObject e = Instantiate(Meteor, new Vector3(Rand, 3, 0), Quaternion.identity);
             StartCoroutine(e.GetComponent<Meteor_Effect>().Pattern02_Meteor(Rand));
-            yield return YieldInstructionCache.WaitForSeconds(0.3f);
+            yield return YieldInstructionCache.WaitForSeconds(0.2f);
         }
         yield return null;
     }
@@ -411,6 +404,10 @@ public class DoPhan : Boss_Info
             StopCoroutine(enemy_spawn);
 
         GameObject[] enemy = GameObject.FindGameObjectsWithTag("Enemy");
+        GameObject[] meteor = GameObject.FindGameObjectsWithTag("Meteor");
+
+        foreach (var e in meteor)
+            Destroy(e);
 
         foreach (var e in enemy)
             Destroy(e);
