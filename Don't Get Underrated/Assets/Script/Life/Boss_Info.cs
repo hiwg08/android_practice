@@ -60,6 +60,7 @@ public class Boss_Info : Life
         GameObject[] enemy = GameObject.FindGameObjectsWithTag("Enemy");
         GameObject[] meteor = GameObject.FindGameObjectsWithTag("Meteor");
         GameObject[] weapon_devil = GameObject.FindGameObjectsWithTag("Weapon_Devil");
+        GameObject[] item = GameObject.FindGameObjectsWithTag("Item");
 
         foreach (var e in meteor)
             Destroy(e);
@@ -68,6 +69,9 @@ public class Boss_Info : Life
             Destroy(e);
 
         foreach (var e in weapon_devil)
+            Destroy(e);
+
+        foreach (var e in item)
             Destroy(e);
     }
     protected IEnumerator Warning(string warning_message, float time_ratio)

@@ -14,7 +14,7 @@ public class Quantum_Bit : Enemy_Info
     private new void Awake()
     {
         base.Awake();
-        backGroundColor = GameObject.Find("Flash").GetComponent<BackGroundColor>();
+        backGroundColor = GameObject.Find("Flash").GetComponent<ImageColor>();
         arrayList = new ArrayList();
 
         if (GameObject.FindGameObjectWithTag("Boss").TryGetComponent(out SolGryn user))
@@ -24,29 +24,28 @@ public class Quantum_Bit : Enemy_Info
     void Start()
     {
         float Solve = Mathf.Sign(transform.position.x);
-        Sequence mysequence = DOTween.Sequence();
-        mysequence.Append(transform.DOMove(new Vector3(Solve * 7, 2, 0), 1f).SetEase(Ease.OutBounce));
-        mysequence.Append(transform.DOMove(new Vector3(0, 2, 0), 1f).SetEase(Ease.InExpo));
-        mysequence.Join(transform.DOScale(new Vector3(1.3f, 1.3f, 0), 1f).SetEase(Ease.InCirc));
-        mysequence.OnComplete(() =>
+
+        DOTween.Sequence()
+        .Append(transform.DOMove(new Vector3(Solve * 7, 2, 0), 1f).SetEase(Ease.OutBounce))
+        .Append(transform.DOMove(new Vector3(0, 2, 0), 1f).SetEase(Ease.InExpo))
+        .Join(transform.DOScale(new Vector3(1.3f, 1.3f, 0), 1f).SetEase(Ease.InCirc))
+        .OnComplete(() =>
         {
             if (Solve >= 0)
                 StartCoroutine(Tr_Co());
             else
                 spriteRenderer.color = new Color(1, 1, 1, 0);
         });
-   
     }
     IEnumerator Tr_Co()
     {
         spriteRenderer.color = new Color(1, 1, 1, 0);
-        backGroundColor.StartCoroutine(backGroundColor.Flash(Color.black, 0.5f, 0.3f));
-        Start_Camera_Shake(0.05f, 2f, true, false);
+        Flash(Color.black, 0.5f, 1f);
+        Camera_Shake(0.03f, 2f, true, false);
         for (int i = -9; i <= 9; i++)
         {
             for (int j = -9; j <= 9; j++)
             {
-                //GameObject f = ObjectPooler.SpawnFromPool("Time_Stop_For_Damage", new Vector3(i, j, 0));
                 GameObject e = Instantiate(Weapon[0], new Vector3(i, j, 0), Quaternion.identity);
                 if (e.TryGetComponent(out Weapon_Devil user))
                 {

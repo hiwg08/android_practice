@@ -102,8 +102,11 @@ public class Student_Gaze_Info : Slider_Viewer
     public IEnumerator Competition(GameObject student, float student_power)
     {
         yield return YieldInstructionCache.WaitForSeconds(0.3f);
-        if (GameObject.Find("Flash_Interrupt") && GameObject.Find("Flash_Interrupt").TryGetComponent(out BackGroundColor user1))
+        if (GameObject.Find("Flash_Interrupt") && GameObject.Find("Flash_Interrupt").TryGetComponent(out ImageColor user1))
+        {
+            user1.StopAllCoroutines();
             user1.StartCoroutine(user1.Flash(new Color(1, 1, 1, 1), 0.3f, 3));
+        }
         
         Change_Pink_Slider();
         
@@ -151,7 +154,7 @@ public class Student_Gaze_Info : Slider_Viewer
                     if (!playerCtrl_Sarang.Is_Fever)
                     {
                         playerCtrl_Sarang.animator.SetBool("Heart_Gain", true);
-                        playerCtrl_Sarang.This_Scale = new Vector3(1.1f, 1.1f, 0);
+                        playerCtrl_Sarang.My_Scale = new Vector3(1.1f, 1.1f, 0);
                     }
                 }
                 Change_Red_Slider();

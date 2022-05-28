@@ -65,7 +65,7 @@ public class PlayerCtrl_Tengai : Player_Info
         base.Awake();
         movement2D = GetComponent<Movement2D>();
         animator = GetComponent<Animator>();
-        backGroundColor = GameObject.FindGameObjectWithTag("Flash").GetComponent<BackGroundColor>();
+        backGroundColor = GameObject.FindGameObjectWithTag("Flash").GetComponent<ImageColor>();
 
         is_Update = false;
         is_LateUpdate = false;
@@ -94,12 +94,12 @@ public class PlayerCtrl_Tengai : Player_Info
     IEnumerator Move_First()
     {
         animator.SetBool("Dead", false);
-        color_when_unbeatable = Color_When_UnBeatable();
+        color_when_unbeatable = My_Color_When_UnBeatable();
         StartCoroutine(color_when_unbeatable);
 
         transform.position = new Vector3(-9, 0, 0);
        
-        yield return StartCoroutine(Position_Lerp(transform.position, new Vector3(-4.6f, transform.position.y, transform.position.z), 2.5f, OriginCurve));
+        yield return StartCoroutine(Move_Straight(transform.position, new Vector3(-4.6f, transform.position.y, transform.position.z), 2.5f, OriginCurve));
            
         weapon_able = true;
         is_LateUpdate = true;
@@ -141,8 +141,6 @@ public class PlayerCtrl_Tengai : Player_Info
         Instantiate(When_Dead_Effect, transform.position, Quaternion.identity);
         LifeTime -= damage;
         animator.SetBool("Dead", true);
-
-        
        
         Unbeatable = true;
         weapon_able = false;
@@ -171,14 +169,14 @@ public class PlayerCtrl_Tengai : Player_Info
     }
     IEnumerator MovePath() // 여기 수정
     {
-        float A = Get_Slerp_Distance(transform.position, transform.position + 2.5f * Vector3.left, Get_Center_Vector(transform.position, transform.position + 2.5f * Vector3.left, Vector3.Distance(transform.position, transform.position + 2.5f * Vector3.left) * 0.85f, "clock"));
+        float A = Get_Curve_Distance(My_Position, My_Position + 2.5f * Vector3.left, Get_Center_Vector(My_Position, My_Position + 2.5f * Vector3.left, Vector3.Distance(My_Position, My_Position + 2.5f * Vector3.left) * 0.85f, "clock"));
 
-        yield return StartCoroutine(Position_Slerp(transform.position, transform.position + 2.5f * Vector3.left, Get_Center_Vector(transform.position, transform.position + 2.5f * Vector3.left, Vector3.Distance(transform.position, transform.position + 2.5f * Vector3.left) * 0.85f, "clock"), 0.3f, OriginCurve, false));
+        yield return StartCoroutine(Move_Curve(My_Position, My_Position + 2.5f * Vector3.left, Get_Center_Vector(My_Position, My_Position + 2.5f * Vector3.left, Vector3.Distance(My_Position, My_Position + 2.5f * Vector3.left) * 0.85f, "clock"), 0.3f, OriginCurve));
 
-        float kuku = ((1.215f * transform.position.x) - transform.position.y - 7) / 1.215f;
+        float kuku = ((1.215f * My_Position.x) - My_Position.y - 7) / 1.215f;
 
-        float B = Vector3.Distance(transform.position, new Vector3(kuku, -7, 0));
-        yield return StartCoroutine(Position_Lerp(transform.position, new Vector3(kuku, -7, 0), B/A * 0.3f, OriginCurve));
+        float B = Vector3.Distance(My_Position, new Vector3(kuku, -7, 0));
+        yield return StartCoroutine(Move_Straight(My_Position, new Vector3(kuku, -7, 0), B/A * 0.3f, OriginCurve));
        
     }
     public void Start_Emit()
@@ -189,47 +187,48 @@ public class PlayerCtrl_Tengai : Player_Info
     }
     IEnumerator I_Start_Emit()
     {
-        Emit_Obj_Copy = Instantiate(Emit_Obj, transform.position, Quaternion.identity);
+        yield return null;
+        //Emit_Obj_Copy = Instantiate(Emit_Obj, transform.position, Quaternion.identity);
 
-        emit_Motion = null;
+        //emit_Motion = null;
 
-        if (Emit_Obj_Copy.TryGetComponent(out Emit_Motion user1))
-        {
-            emit_Motion = user1;
-            emit_expand_circle = emit_Motion.Emit_Expand_Circle();
-            emit_change_size = emit_Motion.Emit_Change_Size();
-        }
-        else
-            yield break;
+        //if (Emit_Obj_Copy.TryGetComponent(out Emit_Motion user1))
+        //{
+        //    emit_Motion = user1;
+        //    emit_expand_circle = emit_Motion.Emit_Expand_Circle();
+        //    emit_change_size = emit_Motion.Emit_Change_Size();
+        //}
+        //else
+        //    yield break;
 
-        emit_Motion.StartCoroutine(emit_change_size);
+        //emit_Motion.StartCoroutine(emit_change_size);
 
-        yield return YieldInstructionCache.WaitForSeconds(5f);
+        //yield return YieldInstructionCache.WaitForSeconds(5f);
 
-        Unbeatable = true;
+        //Unbeatable = true;
 
-        emit_Motion.StopCoroutine(emit_change_size);
-        yield return emit_Motion.StartCoroutine(emit_expand_circle);
+        //emit_Motion.StopCoroutine(emit_change_size);
+        //Change_BG(Color.white, 2);
+        //yield return emit_Motion.StartCoroutine(emit_expand_circle);
 
-        Destroy(Emit_Obj_Copy);
+        //Destroy(Emit_Obj_Copy);
 
-        backGroundColor.StartCoroutine(backGroundColor.Flash(new Color(1, 1, 1, 1), 0.1f, 2));
+        //Flash(new Color(1, 1, 1, 1), 0.1f, 2);
 
-        GameObject[] enemy = GameObject.FindGameObjectsWithTag("Enemy");
-        GameObject[] meteor = GameObject.FindGameObjectsWithTag("Meteor");
-        GameObject[] weapon_devil = GameObject.FindGameObjectsWithTag("Weapon_Devil");
-        foreach (var e in enemy)
-            Destroy(e);
-        foreach (var e in meteor)
-            Destroy(e);
-        foreach (var e in weapon_devil)
-            Destroy(e);
+        //GameObject[] enemy = GameObject.FindGameObjectsWithTag("Enemy");
+        //GameObject[] meteor = GameObject.FindGameObjectsWithTag("Meteor");
+        //GameObject[] weapon_devil = GameObject.FindGameObjectsWithTag("Weapon_Devil");
+        //foreach (var e in enemy)
+        //    Destroy(e);
+        //foreach (var e in meteor)
+        //    Destroy(e);
+        //foreach (var e in weapon_devil)
+        //    Destroy(e);
 
-        GameObject.FindGameObjectWithTag("Boss").GetComponent<Asura>().Stop_Meteor();
+        //GameObject.FindGameObjectWithTag("Boss").GetComponent<Asura>().Stop_Meteor();
 
-        Instantiate(Explode, Vector3.zero, Quaternion.identity);
-        Start_Camera_Shake(0.06f, 2, true, false);
-
+        //Instantiate(Explode, Vector3.zero, Quaternion.identity);
+        //Camera_Shake(0.03f, 2, true, false);
     }
     public override void OnDie()
     {
@@ -296,11 +295,11 @@ public class PlayerCtrl_Tengai : Player_Info
             yield return new WaitForSeconds(0.1f);
             if (is_Power_Up)
             {
-                Launch_Weapon_For_Move(ref Weapon[0], new Vector3(1, -0.1f, 0), Quaternion.identity, 18, transform.position + new Vector3(0.77f, -0.3f, 0));
-                Launch_Weapon_For_Move(ref Weapon[0], new Vector3(1, 0.1f, 0), Quaternion.identity, 18, transform.position + new Vector3(0.77f, -0.3f, 0));
+                Launch_Weapon(ref Weapon[0], new Vector3(1, -0.1f, 0), Quaternion.identity, 18, transform.position + new Vector3(0.77f, -0.3f, 0));
+                Launch_Weapon(ref Weapon[0], new Vector3(1, 0.1f, 0), Quaternion.identity, 18, transform.position + new Vector3(0.77f, -0.3f, 0));
             }
             else
-                Launch_Weapon_For_Move(ref Weapon[0], Vector3.right, Quaternion.identity, 18, transform.position + new Vector3(0.77f, -0.3f, 0));
+                Launch_Weapon(ref Weapon[0], Vector3.right, Quaternion.identity, 18, transform.position + new Vector3(0.77f, -0.3f, 0));
            
         }
     }

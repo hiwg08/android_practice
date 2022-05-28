@@ -65,10 +65,6 @@ public class Weapon_Devil : MonoBehaviour
             user2.TakeDamage(1);
         }
     }
-    //private void OnDisable()
-    //{
-    //    ObjectPooler.ReturnToPool(gameObject);
-    //}
     protected void Start_Camera_Shake(float shake_intensity, float time_persist, bool is_Decline_Camera_Shake, bool is_Continue)
     {
         if (camera_shake != null)

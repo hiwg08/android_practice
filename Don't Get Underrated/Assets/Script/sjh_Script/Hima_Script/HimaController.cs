@@ -117,7 +117,7 @@ public class HimaController : Player_Info {
     }
 	IEnumerator Whilee()
     {
-		IEnumerator user = Color_When_UnBeatable();
+		IEnumerator user = My_Color_When_UnBeatable();
 		StartCoroutine(user);
 		float percent = 0;
 		while(percent < 0.3f)

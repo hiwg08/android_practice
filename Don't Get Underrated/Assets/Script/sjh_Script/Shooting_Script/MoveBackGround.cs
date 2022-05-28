@@ -37,6 +37,10 @@ public class MoveBackGround : MonoBehaviour
             yield return null;
         }
     }
+    public void Increase_Speed_f(float grant_speed, float Speed_Limit)
+    {
+        StartCoroutine(Increase_Speed(grant_speed, Speed_Limit));
+    }
 
     public IEnumerator Decrease_Speed(float time_persist, float Speed_Limit)
     {

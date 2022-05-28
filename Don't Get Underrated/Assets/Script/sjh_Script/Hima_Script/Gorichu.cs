@@ -27,13 +27,11 @@ public class Gorichu : Enemy_Info
     }
     IEnumerator Move() // 루트3 / 2 (0.85)로 끝맺음 짓는게 좋다.
     {
-        Plus_Speed = 0;
+        yield return StartCoroutine(Move_Straight(D[0], D[1], 1f, inclineCurve));
 
-        yield return StartCoroutine(Position_Lerp(D[0], D[1], 1f, inclineCurve));
-
-        IEnumerator size = Size_Change_Infinite(3f);
+        IEnumerator size = Change_My_Size_Infinite(3f);
         StartCoroutine(size);
-        yield return StartCoroutine(Position_Lerp(D[1], D[2], 1f, declineCurve));
+        yield return StartCoroutine(Move_Straight(D[1], D[2], 1f, declineCurve));
         StopCoroutine(size);
         Instantiate(Weapon[0], new Vector3(transform.position.x, 0, 0), Quaternion.identity);
         Destroy(gameObject);

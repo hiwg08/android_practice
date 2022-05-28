@@ -58,14 +58,14 @@ public class Interrupt : Enemy_Info
 
         while (true)
         {
-            Launch_Weapon_For_Move(ref Weapon[0], new Vector3(tempPosition.x - transform.position.x,
+            Launch_Weapon(ref Weapon[0], new Vector3(tempPosition.x - transform.position.x,
                          tempPosition.y - transform.position.y, 0), Quaternion.identity, 9, transform.position);
             yield return null;
         }
     }
     public void Disappear()
     {
-        StartCoroutine(Change_Color_Lerp(new Color(1, 1, 1, 1), new Color(1, 1, 1, 0), 1.5f, 0.1f, null));
+        StartCoroutine(Change_My_Color_Lerp(new Color(1, 1, 1, 1), new Color(1, 1, 1, 0), 1.5f, 0.1f, null));
     }
 
     public void Stop_Coroutine()
