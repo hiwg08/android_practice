@@ -67,8 +67,8 @@ public class Meteor_Effect : Weapon_Devil
         if (copy_Meteor_Line.TryGetComponent(out Meteor_Line user1) && copy_Meteor_Traffic.TryGetComponent(out Meteor_Traffic user2))
         {
             user1.StartCoroutine(user1.Change_Color(MT.Line_Color, MT.Bright_Count, MT.Bright_Time));
-            yield return user2.StartCoroutine(user2.Change_Color(MT.Bright_Count, MT.Bright_Time));
-            yield return user2.StartCoroutine(user2.Shake_Act(MT.Shake_Time, MT.Shake_Intensity));
+            yield return user2.Change_Color(MT.Bright_Count, MT.Bright_Time);
+            yield return user2.Shake_Act(MT.Shake_Time, MT.Shake_Intensity);
         }
         Destroy(copy_Meteor_Traffic);
         Destroy(copy_Meteor_Line);
@@ -80,23 +80,23 @@ public class Meteor_Effect : Weapon_Devil
     }
     public void Pattern04_Meteor_Launch(float temp, float R1, float R2, float R3)
     {
-        Meteor_Traffic_Info MT = new Meteor_Traffic_Info(new Meteor_Line_Info(new Vector3(0, temp, 0), new Color(R1, R2, R3, 1), Quaternion.identity),
+        Meteor_Traffic_Info MT = new Meteor_Traffic_Info(
+            new Meteor_Line_Info(new Vector3(0, temp, 0), new Color(R1, R2, R3, 1), Quaternion.identity),
             new Vector3(8, temp, 0), 0.25f, 2, 0.6f, 1);
         StartCoroutine(Pattern02_Meteor(MT, Vector3.left));
     }
     public void Pattern02_Meteor_Launch(int Rand)
     {
-        Meteor_Traffic_Info MT = new Meteor_Traffic_Info(new Meteor_Line_Info(new Vector3(Rand, 0, 0), Color.white, Quaternion.Euler(0, 0, 90)), 
+        Meteor_Traffic_Info MT = new Meteor_Traffic_Info(
+            new Meteor_Line_Info(new Vector3(Rand, 0, 0), Color.white, Quaternion.Euler(0, 0, 90)), 
             new Vector3(Rand, 3.7f, 0), 0, 0, 0.2f, 3);
         StartCoroutine(Pattern02_Meteor(MT, Vector3.down));
     }
-
     private void LateUpdate()
     {
         if (transform.position.x <= -10 || transform.position.y <= -5.7f)
             Destroy(gameObject);
     }
-
     private void OnDestroy()
     {
         StopAllCoroutines();

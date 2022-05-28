@@ -11,11 +11,11 @@ public class Student_Gaze_Info : Slider_Viewer
 
     Heart_Gaze_Viewer heart_Gaze_Viewer;
 
-    ArrayList Interrupt_NonActive; // 맵을 떠도는 인터럽트
+    List<Interrupt> Interrupt_NonActive; // 맵을 떠도는 인터럽트
 
     PlayerCtrl_Sarang playerCtrl_Sarang;
 
-    Dictionary<GameObject, IEnumerator> Interrupt_Active;
+    List<Interrupt> Interrupt_Active;
 
     [SerializeField]
     GameObject YeonTa;
@@ -32,8 +32,8 @@ public class Student_Gaze_Info : Slider_Viewer
             heart_Gaze_Viewer = user1;
         if (GameObject.FindGameObjectWithTag("Player").TryGetComponent(out PlayerCtrl_Sarang user2))
             playerCtrl_Sarang = user2;
-        Interrupt_NonActive = new ArrayList();
-        Interrupt_Active = new Dictionary<GameObject, IEnumerator>();
+        Interrupt_NonActive = new List<Interrupt>();
+        Interrupt_Active = new List<Interrupt>();
     }
     private new void Awake()
     {
@@ -58,14 +58,8 @@ public class Student_Gaze_Info : Slider_Viewer
             Interrupt_Active.Clear();
             foreach (var interrupt in Interrupt_NonActive)
             {
-                GameObject copy_interrupt = (GameObject)interrupt;
-
-                if (copy_interrupt.TryGetComponent(out Interrupt user))
-                {
-                    IEnumerator temp_s = user.Trigger_Lazor(TempPosition);
-                    user.StartCoroutine(temp_s);
-                    Interrupt_Active.Add(copy_interrupt, temp_s);
-                }
+                Interrupt_Active.Add(interrupt);
+                interrupt.Fight_With_Player(TempPosition);
             }
             return 0;
         }
@@ -130,24 +124,21 @@ public class Student_Gaze_Info : Slider_Viewer
             if (slider.value <= 0 || slider.value >= 1)
             {
                 foreach (var e in Interrupt_Active)
-                {
-                   if (e.Key.TryGetComponent(out Interrupt user))
-                        user.StopCoroutine(e.Value);
-                }
+                    e.Stop_Fight_With_Player();
+
                 if (slider.value <= 0)
                 {
                     foreach (var e in Interrupt_Active)
-                    {
-                        if (e.Key.TryGetComponent(out Interrupt user))
-                            user.Start_Move();
-                    }
+                        e.Start_Move();
+
                     heart_Gaze_Viewer.When_Player_Defeat();
                     playerCtrl_Sarang.animator.SetBool("IsDead", true);
+
                 }
                 else if (slider.value >= 1)
                 {
                     foreach (var e in Interrupt_Active)
-                        Destroy(e.Key);
+                        e.OnDie();
 
                     heart_Gaze_Viewer.When_Interrupt_Defeat();
                     slider.value = 0;
@@ -176,8 +167,8 @@ public class Student_Gaze_Info : Slider_Viewer
                 Vector3 screenPoint = selectedCamera.WorldToViewportPoint(u.transform.position);
                 bool OnScreen = screenPoint.x > 0 && screenPoint.x < 1 && screenPoint.y > 0 && screenPoint.y < 1;
 
-                if (OnScreen)
-                    Interrupt_NonActive.Add(u);
+                if (OnScreen && u.TryGetComponent(out Interrupt I))
+                    Interrupt_NonActive.Add(I);
             }
         }
     }

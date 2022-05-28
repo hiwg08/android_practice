@@ -19,10 +19,6 @@ public class Boss_Info : Life
     [SerializeField]
     protected TextMeshProUGUI WarningText; // 상위
 
-    protected IEnumerator phase; // 상위
-
-    protected ArrayList Pattern_Total; // 상위
-
     public float speed = 15; // 둘다
     public float rotateSpeed = 200f; // 상위
 
@@ -37,7 +33,6 @@ public class Boss_Info : Life
     {
         base.Awake();
         CurrentHP = MaxHP;
-        Pattern_Total = new ArrayList();
     }
     public override void TakeDamage(float damage)
     {

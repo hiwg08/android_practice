@@ -12143,6 +12143,7 @@ MonoBehaviour:
   Boom_Up_Text: {fileID: 6735421058520093813, guid: 23ebdd31d78f5804995a0eb3f7dbaf51, type: 3}
   Power_Effect: {fileID: 227703385401004343, guid: 7eb282ddb9108c340bcecd48dcb06722, type: 3}
   Power_Up_Text: {fileID: 1796663397694158426, guid: 110603a2603138e46aab0550cee5f64b, type: 3}
+  naum_ani: {fileID: 7578063034253665664, guid: e5e429c2b40713944a4409bcaf56db1b, type: 3}
 --- !u!1 &1529927746
 GameObject:
   m_ObjectHideFlags: 0

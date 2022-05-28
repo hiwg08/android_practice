@@ -46,6 +46,9 @@ public class PlayerCtrl_Tengai : Player_Info
     [SerializeField]
     GameObject Power_Up_Text;
 
+    [SerializeField]
+    GameObject naum_ani;
+
     Animator animator; // 애니메이터는 여러개 추가될 수 있어서 상속 생략
 
     GameObject Emit_Obj_Copy; // 고유
@@ -94,12 +97,11 @@ public class PlayerCtrl_Tengai : Player_Info
     IEnumerator Move_First()
     {
         animator.SetBool("Dead", false);
-        color_when_unbeatable = My_Color_When_UnBeatable();
-        StartCoroutine(color_when_unbeatable);
+        Run_Life_Act_And_Continue(ref color_when_unbeatable, My_Color_When_UnBeatable());
 
-        transform.position = new Vector3(-9, 0, 0);
+        My_Position = new Vector3(-9, 0, 0);
        
-        yield return StartCoroutine(Move_Straight(transform.position, new Vector3(-4.6f, transform.position.y, transform.position.z), 2.5f, OriginCurve));
+        yield return Move_Straight(My_Position, new Vector3(-4.6f, My_Position.y, My_Position.z), 2.5f, OriginCurve);
            
         weapon_able = true;
         is_LateUpdate = true;
@@ -108,7 +110,7 @@ public class PlayerCtrl_Tengai : Player_Info
         movement2D.MoveSpeed = 10;
         
 
-        StartCoroutine(FadeText());
+        Run_Life_Act(FadeText());
         yield return new WaitForSeconds(2f);
 
         if (!boss_intend)
@@ -119,7 +121,7 @@ public class PlayerCtrl_Tengai : Player_Info
         else
             Unbeatable = false;
 
-        StopCoroutine(color_when_unbeatable);
+        Stop_Life_Act(ref color_when_unbeatable);
         spriteRenderer.color = new Color(1, 1, 1, 1);
     }
     IEnumerator FadeText()
@@ -159,76 +161,79 @@ public class PlayerCtrl_Tengai : Player_Info
         if (LifeTime <= 0)
             OnDie();
 
-        StartCoroutine(Damage_After());
+        Run_Life_Act(Damage_After());
     }
     IEnumerator Damage_After()
     {
-        yield return StartCoroutine(MovePath());
+        yield return MovePath();
 
-        StartCoroutine(Move_First());
+        Run_Life_Act(Move_First());
     }
     IEnumerator MovePath() // 여기 수정
     {
-        float A = Get_Curve_Distance(My_Position, My_Position + 2.5f * Vector3.left, Get_Center_Vector(My_Position, My_Position + 2.5f * Vector3.left, Vector3.Distance(My_Position, My_Position + 2.5f * Vector3.left) * 0.85f, "clock"));
+        float A = Get_Curve_Distance(My_Position, My_Position + 2.5f * Vector3.left, 
+            Get_Center_Vector(My_Position, My_Position + 2.5f * Vector3.left, Vector3.Distance(My_Position, My_Position + 2.5f * Vector3.left) * 0.85f, "clock"));
 
-        yield return StartCoroutine(Move_Curve(My_Position, My_Position + 2.5f * Vector3.left, Get_Center_Vector(My_Position, My_Position + 2.5f * Vector3.left, Vector3.Distance(My_Position, My_Position + 2.5f * Vector3.left) * 0.85f, "clock"), 0.3f, OriginCurve));
+        yield return Move_Curve(My_Position, My_Position + 2.5f * Vector3.left, 
+            Get_Center_Vector(My_Position, My_Position + 2.5f * Vector3.left, Vector3.Distance(My_Position, My_Position + 2.5f * Vector3.left) * 0.85f, "clock"), 0.3f, OriginCurve);
 
         float kuku = ((1.215f * My_Position.x) - My_Position.y - 7) / 1.215f;
 
         float B = Vector3.Distance(My_Position, new Vector3(kuku, -7, 0));
-        yield return StartCoroutine(Move_Straight(My_Position, new Vector3(kuku, -7, 0), B/A * 0.3f, OriginCurve));
+        yield return Move_Straight(My_Position, new Vector3(kuku, -7, 0), B/A * 0.3f, OriginCurve);
        
     }
     public void Start_Emit()
     {
         Unbeatable = true;
-        i_start_emit = I_Start_Emit();
-        StartCoroutine(i_start_emit);
+        Run_Life_Act_And_Continue(ref i_start_emit, I_Start_Emit());
     }
     IEnumerator I_Start_Emit()
     {
         yield return null;
-        //Emit_Obj_Copy = Instantiate(Emit_Obj, transform.position, Quaternion.identity);
+        Emit_Obj_Copy = Instantiate(Emit_Obj, My_Position, Quaternion.identity);
 
-        //emit_Motion = null;
+        emit_Motion = null;
 
-        //if (Emit_Obj_Copy.TryGetComponent(out Emit_Motion user1))
-        //{
-        //    emit_Motion = user1;
-        //    emit_expand_circle = emit_Motion.Emit_Expand_Circle();
-        //    emit_change_size = emit_Motion.Emit_Change_Size();
-        //}
-        //else
-        //    yield break;
+        if (Emit_Obj_Copy.TryGetComponent(out Emit_Motion user1))
+        {
+            emit_Motion = user1;
+            emit_expand_circle = emit_Motion.Emit_Expand_Circle();
+            emit_change_size = emit_Motion.Emit_Change_Size();
+        }
+        else
+            yield break;
 
-        //emit_Motion.StartCoroutine(emit_change_size);
+        emit_Motion.StartCoroutine(emit_change_size);
 
-        //yield return YieldInstructionCache.WaitForSeconds(5f);
+        yield return YieldInstructionCache.WaitForSeconds(5f);
 
-        //Unbeatable = true;
+        Unbeatable = true;
 
-        //emit_Motion.StopCoroutine(emit_change_size);
-        //Change_BG(Color.white, 2);
-        //yield return emit_Motion.StartCoroutine(emit_expand_circle);
+        emit_Motion.StopCoroutine(emit_change_size);
 
-        //Destroy(Emit_Obj_Copy);
+        Change_BG(Color.white, 2);
+        yield return emit_expand_circle;
 
-        //Flash(new Color(1, 1, 1, 1), 0.1f, 2);
+        Destroy(Emit_Obj_Copy);
 
-        //GameObject[] enemy = GameObject.FindGameObjectsWithTag("Enemy");
-        //GameObject[] meteor = GameObject.FindGameObjectsWithTag("Meteor");
-        //GameObject[] weapon_devil = GameObject.FindGameObjectsWithTag("Weapon_Devil");
-        //foreach (var e in enemy)
-        //    Destroy(e);
-        //foreach (var e in meteor)
-        //    Destroy(e);
-        //foreach (var e in weapon_devil)
-        //    Destroy(e);
+        Flash(new Color(1, 1, 1, 1), 0.1f, 2);
 
-        //GameObject.FindGameObjectWithTag("Boss").GetComponent<Asura>().Stop_Meteor();
+        GameObject[] enemy = GameObject.FindGameObjectsWithTag("Enemy");
+        GameObject[] meteor = GameObject.FindGameObjectsWithTag("Meteor");
+        GameObject[] weapon_devil = GameObject.FindGameObjectsWithTag("Weapon_Devil");
+        foreach (var e in enemy)
+            Destroy(e);
+        foreach (var e in meteor)
+            Destroy(e);
+        foreach (var e in weapon_devil)
+            Destroy(e);
 
-        //Instantiate(Explode, Vector3.zero, Quaternion.identity);
-        //Camera_Shake(0.03f, 2, true, false);
+        GameObject.FindGameObjectWithTag("Boss").GetComponent<Asura>().Stop_Meteor();
+
+        Instantiate(Explode, Vector3.zero, Quaternion.identity);
+        Instantiate(naum_ani, Vector3.zero, Quaternion.identity);
+        Camera_Shake(0.025f, 2, true, false);
     }
     public override void OnDie()
     {

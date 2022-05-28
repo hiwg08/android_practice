@@ -61,7 +61,7 @@ public class Asura : Boss_Info
 
     MoveBackGround moveBackGround_1, moveBackGround_2;
 
-    IEnumerator enemy_spawn, meteor_launch, change_boss_color, repeat_phase, pattern06_weapon;
+    IEnumerator enemy_spawn, meteor_launch, change_boss_color, repeat_phase, pattern06_weapon, pattern;
 
     private new void Awake()
     {
@@ -74,10 +74,7 @@ public class Asura : Boss_Info
         moveBackGround_1 = GameObject.FindGameObjectWithTag("BackGround1").GetComponent<MoveBackGround>();
         moveBackGround_2 = GameObject.FindGameObjectWithTag("BackGround2").GetComponent<MoveBackGround>();
         playerCtrl_Tengai = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCtrl_Tengai>();
-        phase = Pattern01();
-       
-        for (int i = 0; i < 5; i++)
-            Pattern_Total.Add(phase);
+        pattern = null;
         Total_Pattern_Num = 0;
     }
 
@@ -86,7 +83,7 @@ public class Asura : Boss_Info
         if (!Unbeatable)
         {
             CurrentHP -= damage;
-            StartCoroutine(Hit());
+            Run_Life_Act(Hit());
             if (CurrentHP <= 0)
             {
                 Unbeatable = true;
@@ -106,7 +103,7 @@ public class Asura : Boss_Info
     public override void OnDie()
     {
         My_Position = new Vector3(7, 0, 0);
-        SpriteRenderer_Color = new Color(1, 1, 1, 1);
+        My_Color = new Color(1, 1, 1, 1);
         backGroundColor.Set_BGColor(new Color(1, 1, 1, 0));
 
         playerCtrl_Tengai.Final_Score += 10000;
@@ -116,14 +113,14 @@ public class Asura : Boss_Info
 
         StopAllCoroutines();
 
-        StartCoroutine(Boss_Die_After());
+        Run_Life_Act(Boss_Die_After());
     }
     IEnumerator Boss_Die_After()
     {
         Flash(Color.white, 0.2f, 5);
-        StartCoroutine(Shake_Act(0.2f, 0, 10, false));
-        moveBackGround_1.StartCoroutine(moveBackGround_1.Decrease_Speed(1, 0));
-        yield return moveBackGround_2.StartCoroutine(moveBackGround_2.Decrease_Speed(1, 0));
+        Run_Life_Act(Shake_Act(0.2f, 0, 10, false));
+        moveBackGround_1.Decrease_Speed_F(8, 0);
+        yield return moveBackGround_2.Decrease_Speed_W(8, 0);
         yield return YieldInstructionCache.WaitForSeconds(2f);
 
         yield return Change_BG_And_Wait(Color.black, 2);
@@ -131,39 +128,37 @@ public class Asura : Boss_Info
     }
     public void Phase_Start()
     {
-        StartCoroutine(Boss_Apprearance());
+        Run_Life_Act(Boss_Apprearance());
     }
 
     IEnumerator Boss_Apprearance()
     {
-        StartCoroutine(Change_My_Size(My_Scale, My_Scale * 0.5f, 5, OriginCurve));
+        //Run_Life_Act(Change_My_Size(My_Scale, My_Scale * 0.5f, 5, OriginCurve));
 
-        My_Position = new Vector3(0, -8, 0);
+        //My_Position = new Vector3(0, -8, 0);
 
-        float standard_distance = -1;
-        int i = 0;
+        //float standard_distance = -1;
+        //int i = 0;
 
-        foreach (var e in DoPhan_Appearance)
-        {
-            float first_distance = Get_Curve_Distance(My_Position, e.Next_Position, Get_Center_Vector(My_Position, e.Next_Position,
-                Vector3.Distance(My_Position, e.Next_Position) * 0.85f, e.Dir));
-            if (standard_distance == -1)
-                standard_distance = first_distance;
-            yield return Move_Curve(My_Position, e.Next_Position,
-                Get_Center_Vector(My_Position, e.Next_Position, Vector3.Distance(My_Position, e.Next_Position) * 0.85f, e.Dir),
-                (0.4f + 0.2f * i++) * (first_distance / standard_distance), OriginCurve);
-        }
+        //foreach (var e in DoPhan_Appearance)
+        //{
+        //    float first_distance = Get_Curve_Distance(My_Position, e.Next_Position, Get_Center_Vector(My_Position, e.Next_Position,
+        //        Vector3.Distance(My_Position, e.Next_Position) * 0.85f, e.Dir));
+        //    if (standard_distance == -1)
+        //        standard_distance = first_distance;
+        //    yield return Move_Curve(My_Position, e.Next_Position,
+        //        Get_Center_Vector(My_Position, e.Next_Position, Vector3.Distance(My_Position, e.Next_Position) * 0.85f, e.Dir),
+        //        (0.4f + 0.2f * i++) * (first_distance / standard_distance), OriginCurve);
+        //}
 
-        moveBackGround_1.Increase_Speed_f(1, 8);
-        yield return moveBackGround_2.Increase_Speed(1, 8);
+        //moveBackGround_1.Increase_Speed_F(8, 10);
+        //yield return moveBackGround_2.Increase_Speed_W(8, 10);
 
         My_Position = new Vector3(7, 0, 0);
         My_Scale = new Vector3(0.6f, 0.6f, 0);
 
-
         yield return Ready_To_Pattern();
-        repeat_phase = Repeat_Phase();
-        StartCoroutine(repeat_phase);
+        Run_Life_Act_And_Continue(ref repeat_phase, Repeat_Phase());
     }
 
     IEnumerator Ready_To_Pattern()
@@ -171,7 +166,7 @@ public class Asura : Boss_Info
         Unbeatable = true;
 
         for (int i = 0; i < 2; i++)
-            yield return Change_Color_Return_To_Origin(Color.white, new Color(159 / 255, 43 / 255, 43 / 255), 0.125f, false);
+            yield return Change_My_Color_And_Back(Color.white, new Color(159 / 255, 43 / 255, 43 / 255), 0.125f, false);
         
         yield return YieldInstructionCache.WaitForSeconds(0.25f);
 
@@ -190,41 +185,41 @@ public class Asura : Boss_Info
    
     IEnumerator Repeat_Phase()
     {
-        yield return Pattern01();
-        yield return Pattern02();
-        yield return Pattern03();
-        yield return Pattern05();
-        yield return Ready_To_Pattern();
-        yield return Pattern06();
-        yield return Ready_To_Pattern();
+       // yield return Pattern01();
+       // yield return Pattern02();
+      // yield return Pattern03();
+        //yield return Pattern05();
+       // yield return Ready_To_Pattern();
+        //yield return Pattern06();
+        //yield return Ready_To_Pattern();
         yield return Pattern04();
         //while (true)
         //{
-        //    Pattern_Num = Random.Range(0, 6);
-        //    switch (Pattern_Num)
+        //    Total_Pattern_Num = Random.Range(0, 6);
+        //    switch (Total_Pattern_Num)
         //    {
         //        case 0:
-        //            Pattern_Total[Pattern_Num] = Pattern01();
+        //            pattern = Pattern01();
         //            break;
         //        case 1:
-        //            Pattern_Total[Pattern_Num] = Pattern02();
+        //            pattern = Pattern02();
         //            break;
         //        case 2:
-        //            Pattern_Total[Pattern_Num] = Pattern03();
+        //            pattern = Pattern03();
         //            break;
         //        case 3:
-        //            Pattern_Total[Pattern_Num] = Pattern04();
+        //            pattern = Pattern04();
         //            break;
         //        case 4:
-        //            Pattern_Total[Pattern_Num] = Pattern05();
+        //            pattern = Pattern05();
         //            break;
         //        case 5:
-        //            Pattern_Total[Pattern_Num] = Pattern06();
+        //            pattern = Pattern06();
         //            break;
         //    }
-        //    if (Pattern_Num == 5 || Pattern_Num == 4)
+        //    if (Total_Pattern_Num == 5 || Total_Pattern_Num == 4)
         //        yield return Ready_To_Pattern();
-        //    yield return ((IEnumerator)Pattern_Total[Pattern_Num]);
+        //    yield return pattern;
         //}
     }
     IEnumerator Pattern01()
@@ -233,7 +228,7 @@ public class Asura : Boss_Info
 
         Unbeatable = true;
 
-        yield return Change_Color_Return_To_Origin(Color.white, new Color(0, 0, 0, 1), 1, false);
+        yield return Change_My_Color_And_Back(Color.white, Color.black, 1, false);
 
         Launch_Weapon(ref Weapon[0], new Vector3(1, 0.5714f, 0), Quaternion.identity, 8, My_Position);
         Launch_Weapon(ref Weapon[0], new Vector3(1, -0.5714f, 0), Quaternion.Euler(new Vector3(0, 0, -60)), 8, My_Position);
@@ -242,8 +237,8 @@ public class Asura : Boss_Info
 
         yield return YieldInstructionCache.WaitForSeconds(1f);
 
-        change_boss_color = Change_Color_Return_To_Origin(Color.white, new Color(159 / 255, 43 / 255, 43 / 255), 0.25f, true);
-        StartCoroutine(change_boss_color);
+        Run_Life_Act_And_Continue(ref change_boss_color, Change_My_Color_And_Back(Color.white, Color.black, 0.25f, true));
+
         Camera_Shake(0.03f, 1.5f, true, false);
 
         Launch_Weapon(ref Weapon[1], Vector3.zero, Quaternion.Euler(new Vector3(0, 0, -9)), 0, new Vector3(0, 4, 0));
@@ -251,14 +246,14 @@ public class Asura : Boss_Info
         Launch_Weapon(ref Weapon[2], Vector3.zero, Quaternion.Euler(new Vector3(0, 0, -115)), 0, new Vector3(-8, 0, 0));
         Launch_Weapon(ref Weapon[2], Vector3.zero, Quaternion.Euler(new Vector3(0, 0, -115)), 0, new Vector3(6.6f, 0, 0));
 
-        StopCoroutine(change_boss_color);
-
         for (int i = 0; i < 5; i++)
             yield return Flash_And_Wait(Random.ColorHSV(), 0.1f, 0.5f);
 
         Unbeatable = false;
 
         yield return Move_Straight(My_Position, new Vector3(7, 0, 0), 1, declineCurve);
+
+        Stop_Life_Act(ref change_boss_color);
     }
     IEnumerator Pattern02()
     {
@@ -345,7 +340,7 @@ public class Asura : Boss_Info
 
         yield return Move_Straight(Vector3.zero, new Vector3(0, 3, 0), 1, declineCurve);
 
-        yield return Circle_Move(270, -1, 0, 7, 3, 0, 0, 2);
+        yield return Move_Circle(270, -1, 0, 7, 3, 0, 0, 2);
     }
     IEnumerator Pattern04() // + 플레이어가 시련을 겪다가 방출하는 것도 추가해야한다. 하나라도 데미지 맞으면 정화 취소.
     {
@@ -354,14 +349,11 @@ public class Asura : Boss_Info
 
         playerCtrl_Tengai.Start_Emit();
 
-        enemy_spawn = Enemy_Spawn();
-        StartCoroutine(enemy_spawn);
+        Run_Life_Act_And_Continue(ref enemy_spawn, Enemy_Spawn());
 
         for (int i = 0; i < 14; i++)
         {
             int Random_Num = Random.Range(0, 4);
-            if (meteor_launch != null)
-                StopCoroutine(meteor_launch);
             switch (Random_Num)
             {
                 case 0:
@@ -383,45 +375,35 @@ public class Asura : Boss_Info
             }
             yield return YieldInstructionCache.WaitForSeconds(2f);
         }
-        if (meteor_launch != null)
-            StopCoroutine(meteor_launch);
 
-        if (enemy_spawn != null)
-            StopCoroutine(enemy_spawn);
+        Stop_Life_Act(ref enemy_spawn);
 
         Killed_All_Mine();
 
         Unbeatable = false;
         yield return Move_Straight(My_Position, new Vector3(7, My_Position.y, 0), 1, declineCurve);
         yield return YieldInstructionCache.WaitForSeconds(0.5f);
+        yield return null;
     }
     public void Stop_Meteor()
     {
-        StartCoroutine(I_Stop_Meteor());
+        Run_Life_Act(I_Stop_Meteor());
     }
     IEnumerator I_Stop_Meteor()
     {
-        if (meteor_launch != null)
-            StopCoroutine(meteor_launch);
-
-        if (enemy_spawn != null)
-            StopCoroutine(enemy_spawn);
-
-        if ((IEnumerator)Pattern_Total[Total_Pattern_Num] != null)
-            StopCoroutine((IEnumerator)Pattern_Total[Total_Pattern_Num]);
-
-        if (repeat_phase != null)
-            StopCoroutine(repeat_phase);
+        Stop_Life_Act(ref meteor_launch);
+        Stop_Life_Act(ref enemy_spawn);
+        Stop_Life_Act(ref pattern);
+        Stop_Life_Act(ref repeat_phase);
 
         yield return YieldInstructionCache.WaitForSeconds(2f);
 
         Unbeatable = false;
-        StartCoroutine(Shake_Act(0.3f, 0, 2, false));
+        Run_Life_Act(Shake_Act(0.3f, 0, 2, false));
         yield return Move_Straight(My_Position, new Vector3(7, 0, 0), 2, declineCurve);
         
         yield return YieldInstructionCache.WaitForSeconds(2f); // 플레이어에게 무차별 폭격 받는 곳
-        repeat_phase = Repeat_Phase();
-        StartCoroutine(repeat_phase);
+        Run_Life_Act_And_Continue(ref repeat_phase, Repeat_Phase());
         yield return null;
     }
     IEnumerator Enemy_Spawn()
@@ -482,23 +464,23 @@ public class Asura : Boss_Info
 
     IEnumerator Pattern06()
     {
-        moveBackGround_1.StartCoroutine(moveBackGround_1.Increase_Speed(0.3f, 16));
-        yield return moveBackGround_2.Increase_Speed(0.3f, 16);
+        moveBackGround_1.Increase_Speed_F(8, 16);
+        yield return moveBackGround_2.Increase_Speed_W(8, 16);
 
-        yield return Change_Color_Return_To_Origin(Color.white, new Color(159 / 255, 43 / 255, 43 / 255), 0.8f, false);
+        yield return Change_My_Color_And_Back(Color.white, Color.black, 0.8f, false);
 
         My_Position = new Vector3(7, 0, 0);
-        pattern06_weapon = Pattern06_Weapon();
-        StartCoroutine(pattern06_weapon);
+        Run_Life_Act_And_Continue(ref pattern06_weapon, Pattern06_Weapon());
 
         yield return Move_Straight(new Vector3(7, 0, 0), new Vector3(7, 3, 0), 1.5f, De_In_Curve);
         for (int i = 0; i < 4; i++)
         {
-            yield return StartCoroutine(Move_Straight(new Vector3(7, 3, 0), new Vector3(7, -3, 0), 1.5f, De_In_Curve));
-            yield return StartCoroutine(Move_Straight(new Vector3(7, -3, 0), new Vector3(7, 3, 0), 1.5f, De_In_Curve));
+            yield return Move_Straight(new Vector3(7, 3, 0), new Vector3(7, -3, 0), 1.5f, De_In_Curve);
+            yield return Move_Straight(new Vector3(7, -3, 0), new Vector3(7, 3, 0), 1.5f, De_In_Curve);
         }
 
-        StopCoroutine(pattern06_weapon);
+        Stop_Life_Act(ref pattern06_weapon);
+
         int flag = 1;
         for (int i = 0; i < 8; i++)
         {
@@ -507,6 +489,8 @@ public class Asura : Boss_Info
             flag = -flag;
             yield return YieldInstructionCache.WaitForSeconds(1f);
         }
+        moveBackGround_1.Decrease_Speed_F(4, 12);
+        yield return moveBackGround_2.Decrease_Speed_W(4, 12);
     }
 
     IEnumerator Pattern06_Weapon()
@@ -540,11 +524,11 @@ public class Asura : Boss_Info
                 Random_Time = 0.05f;
             }
             Random_Move = Random.Range(0, 6);
-            yield return Change_My_Color_Lerp(Alpha_1, Alpha_0, 0.1f, Random_Time, DisAppear_Effect_1);
+            yield return Change_My_Color(Alpha_1, Alpha_0, 0.1f, Random_Time, DisAppear_Effect_1);
 
             My_Position = DoPhan_Pattern05_Move[Random_Move];
 
-            yield return Change_My_Color_Lerp(Alpha_0, Alpha_1, 0.1f, Random_Time, DisAppear_Effect_2);
+            yield return Change_My_Color(Alpha_0, Alpha_1, 0.1f, Random_Time, DisAppear_Effect_2);
         }
         yield return YieldInstructionCache.WaitForSeconds(1f);
         yield return Move_Curve(My_Position, new Vector3(7, 0, 0), Vector3.zero, 2, declineCurve);

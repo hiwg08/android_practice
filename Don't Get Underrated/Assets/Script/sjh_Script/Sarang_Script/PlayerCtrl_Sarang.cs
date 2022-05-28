@@ -34,7 +34,7 @@ public class PlayerCtrl_Sarang : Player_Info
 
     public bool Is_Fever = false;
 
-    private IEnumerator first_phase;
+    private IEnumerator first_phase, lazor_in_second_phase;
 
     private int Floor_Player_Place;
 
@@ -121,7 +121,6 @@ public class PlayerCtrl_Sarang : Player_Info
     // Start is called before the first frame update
     void Start()
     {
-        //StartCoroutine(Start_Game());
         All_Start();
     }
     IEnumerator First_Phase()
@@ -138,13 +137,13 @@ public class PlayerCtrl_Sarang : Player_Info
                 {
                     FixedTarget = true;
                     Targetting_Object.SetActive(true);
-                    if (Targetting_Object.TryGetComponent(out Targetting_Effect targetting_effect))
-                        targetting_effect.Change_Scale_And_Color(hit.transform.gameObject);
+                    if (Targetting_Object.TryGetComponent(out Targetting_Effect TE))
+                        TE.Change_Scale_And_Color(hit.transform.gameObject);
                    
                 }
                 if (Input.GetMouseButtonDown(0))
                 {
-                    StartCoroutine(Second_Phase());
+                    Run_Life_Act(Second_Phase());
                     yield break;
                 }
             }
@@ -196,7 +195,7 @@ public class PlayerCtrl_Sarang : Player_Info
 
                     if (temp == 0)
                     {
-                        StartCoroutine(Third_Phase(Student_Clone));
+                        Run_Life_Act(Third_Phase(Student_Clone));
                         yield break;
                     }
                     else if (temp == 1)
@@ -270,14 +269,12 @@ public class PlayerCtrl_Sarang : Player_Info
     {
         All_Stop();
 
-        IEnumerator lazor_in_second_phase = Lazor_In_Second_Phase(targetStudent_t);
-
-        StartCoroutine(lazor_in_second_phase);
+        Run_Life_Act_And_Continue(ref lazor_in_second_phase, Lazor_In_Second_Phase(targetStudent_t));
 
         if (Student_Gaze.TryGetComponent(out Student_Gaze_Info user))
             yield return user.StartCoroutine(user.Competition(targetStudent_t, Student_Power));
 
-        StopCoroutine(lazor_in_second_phase);
+        Stop_Life_Act(ref lazor_in_second_phase);
 
         Init_Student();
 
@@ -425,7 +422,7 @@ public class PlayerCtrl_Sarang : Player_Info
             {
                 Dash_Able = false;
                 IsOneClick = false;
-                StartCoroutine(Move_Delay());
+                Run_Life_Act(Move_Delay());
             }
         }
     }
@@ -457,12 +454,12 @@ public class PlayerCtrl_Sarang : Player_Info
         if (param == 0) // 아래 층 이동
         {
             Floor_Player_Place--;
-            StartCoroutine(I_Move_Floor(38, "down"));
+            Run_Life_Act(I_Move_Floor(38, "down"));
         }
         else if (param == 1) // 위 층 이동
         {
             Floor_Player_Place++;
-            StartCoroutine(I_Move_Floor(0, "up"));
+            Run_Life_Act(I_Move_Floor(0, "up"));
         }
     }
     IEnumerator I_Move_Floor(int Change_X, string CHK)
@@ -516,8 +513,8 @@ public class PlayerCtrl_Sarang : Player_Info
     }
     void All_Stop()
     {
-        if (first_phase != null)
-            StopCoroutine(first_phase);
+        Stop_Life_Act(ref first_phase);
+
         Dash_Able = false;
         Move_Able = false;
         is_Button = false;
@@ -537,8 +534,7 @@ public class PlayerCtrl_Sarang : Player_Info
         Student_Clone = null;
         PlayerWalkSpeed = 0.03f;
 
-        first_phase = First_Phase();
-        StartCoroutine(first_phase);
+        Run_Life_Act_And_Continue(ref first_phase, First_Phase());
     }
     void Update()
     {

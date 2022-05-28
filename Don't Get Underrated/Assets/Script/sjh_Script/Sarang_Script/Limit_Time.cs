@@ -74,19 +74,19 @@ public class Limit_Time : MonoBehaviour
                     
                 foreach (var u in e)
                 {
-                    if (u.TryGetComponent(out Interrupt user))
+                    if (u.TryGetComponent(out Interrupt I1))
                     {
-                        user.Stop_Coroutine();
-                        user.Disappear();
+                        I1.Stop_Coroutine();
+                        I1.Disappear();
                     }
                 }
                 
                 foreach (var u in q)
                 {
-                    if (u.TryGetComponent(out Student user))
+                    if (u.TryGetComponent(out Student S1))
                     {
-                        user.Stop_Coroutine();
-                        user.Disappear();
+                        S1.Stop_Coroutine();
+                        S1.Disappear();
                     }
                 }
 

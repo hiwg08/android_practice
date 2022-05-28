@@ -66,7 +66,7 @@ public class Life : MonoBehaviour, Life_Of_Basic
         if (cameraShake != null && cameraShake.mainCamera == null && GameObject.Find("Main Camera").TryGetComponent(out Camera camera))
             cameraShake.mainCamera = camera;
     }
-    public Color SpriteRenderer_Color
+    public Color My_Color
     {
         get { return spriteRenderer.color; }
         set { spriteRenderer.color = value; }
@@ -101,7 +101,7 @@ public class Life : MonoBehaviour, Life_Of_Basic
             Instantiate(When_Dead_Effect, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
-    protected IEnumerator Circle_Move(int Degree, int is_ClockWise_And_Speed, float Start_Degree, float x, float y, float start_x, float start_y, float time_persist)
+    protected IEnumerator Move_Circle(int Degree, int is_ClockWise_And_Speed, float Start_Degree, float x, float y, float start_x, float start_y, float time_persist)
     {
         // 각도, 시계/반시계 방향, x축 원, y축 원
 
@@ -143,7 +143,7 @@ public class Life : MonoBehaviour, Life_Of_Basic
             yield return null;
         }
     }
-    protected IEnumerator Change_Color_Return_To_Origin(Color Origin_C, Color Change_C, float time_persist, bool is_Continue)
+    protected IEnumerator Change_My_Color_And_Back(Color Origin_C, Color Change_C, float time_persist, bool is_Continue)
     {
         float percent;
         while (true)
@@ -180,7 +180,7 @@ public class Life : MonoBehaviour, Life_Of_Basic
             ee = !ee;
         }
     }
-    protected IEnumerator Change_My_Color_Lerp(Color Origin_C, Color Change_C, float time_persist, float Wait_Second, GameObject Effect)
+    protected IEnumerator Change_My_Color(Color Origin_C, Color Change_C, float time_persist, float Wait_Second, GameObject Effect)
     {
         float percent;
         if (Effect != null)
@@ -329,7 +329,6 @@ public class Life : MonoBehaviour, Life_Of_Basic
     }
     protected IEnumerator Change_BG_And_Wait(Color Change, float ratio)
     {
-        Color Origin = Color.red;
         if (backGroundColor != null)
         {
             if (back_ground_color_i != null)
@@ -361,5 +360,26 @@ public class Life : MonoBehaviour, Life_Of_Basic
         }
         else
             yield return null;
+    }
+    protected void Stop_Life_Act(ref IEnumerator Recv)
+    {
+        if (Recv != null)
+            StopCoroutine(Recv);
+    }
+    protected void Run_Life_Act_And_Continue(ref IEnumerator Recv, IEnumerator Send)
+    {
+        Stop_Life_Act(ref Recv);
+        Recv = Send;
+        StartCoroutine(Recv);
+
+    }
+    protected void Run_Life_Act(IEnumerator Send)
+    {
+        StartCoroutine(Send);
+    }
+
+    private void OnDestroy()
+    {
+        StopAllCoroutines();
     }
 }
