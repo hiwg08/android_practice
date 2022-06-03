@@ -127,7 +127,7 @@ public class Asura : Boss_Info
         WarningText.color = Color.clear;
         imageColor.Set_BGColor(Color.clear);
 
-        playerCtrl_Tengai.Final_Score += 10000;
+        playerCtrl_Tengai.Final_Stage_1_Score += 10000;
         Instantiate(When_Dead_Effect, My_Position, Quaternion.identity);
 
         Killed_All_Mine();

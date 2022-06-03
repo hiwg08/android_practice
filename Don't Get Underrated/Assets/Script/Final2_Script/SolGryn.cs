@@ -334,11 +334,8 @@ public class SolGryn : Boss_Info
 
     private IEnumerator Pattern03()
     {
-        transform.SetPositionAndRotation(new Vector3(6, 0, 0), Quaternion.identity);
-
-        yield return Change_My_Color(My_Color, Color.white, 0.33f, 0, DisAppear_Effect_1);
-        yield return Move_Straight(My_Position, new Vector3(My_Position.x, My_Position.y - 3, 0), 1, inclineCurve);
-        yield return Move_Straight(My_Position, new Vector3(My_Position.x, 11, 0), 1, declineCurve);
+        yield return Move_Straight(My_Position, new Vector3(My_Position.x, My_Position.y - 3, 0), 0.7f, inclineCurve);
+        yield return Move_Straight(My_Position, new Vector3(My_Position.x, 11, 0), 0.7f, declineCurve);
 
         for (int i = -1; i < 2; i++)
         {

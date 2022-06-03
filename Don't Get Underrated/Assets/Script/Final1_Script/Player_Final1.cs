@@ -67,7 +67,7 @@ public class Player_Final1 : Player_Info
         Unbeatable = true;
         is_boss_first_appear = false;
         is_Power_Up = false;
-        Final_Score = 0;
+        Final_Stage_1_Score = 0;
         Power_Slider.SetActive(false);
         Speed_Slider.SetActive(false);
 
