@@ -7,7 +7,7 @@ public class Player_Info : Life
     // Start is called before the first frame update
 
     [SerializeField]
-    protected int LifeTime = 5;
+    protected int DeathCount = 5;
 
     [SerializeField]
     protected GameObject[] Item;
@@ -46,8 +46,8 @@ public class Player_Info : Life
     {
         if (Unbeatable)
             return;
-        LifeTime -= damage;
-        if (LifeTime <= 0)
+        DeathCount -= damage;
+        if (DeathCount <= 0)
             OnDie();
     }
 

@@ -14,6 +14,9 @@ public class SolGryn : Boss_Info
     private GameObject PalJeongDo_Thunder;
 
     [SerializeField]
+    GameObject SolGryn_Die_Particle;
+
+    [SerializeField]
     private GameObject Straw;
 
     private Player_Final2 himaController;
@@ -169,7 +172,6 @@ public class SolGryn : Boss_Info
 
         List<IEnumerator> Pattern_Collect;
 
-
         while (true)
         {
             Pattern_Collect = new List<IEnumerator>() { Pattern01(), Pattern02(), Pattern03(), Pattern04(), Pattern05(), Pattern06() };
@@ -217,7 +219,10 @@ public class SolGryn : Boss_Info
             yield return NX_2.StartCoroutine(NX_2.Move(1));
         }
         yield return Trail_Color_Change(Color.red, Color.clear, 0.5f);
+
         trailRenderer.enabled = false;
+        trailRenderer.startColor = Color.red;
+        trailRenderer.endColor = Color.red;
 
         if (GameObject.Find("TrailCollider"))
             Destroy(GameObject.Find("TrailCollider"));
@@ -471,6 +476,7 @@ public class SolGryn : Boss_Info
         yield return null;
     }
 
+
     private IEnumerator HP_Decrease()
     {
         while(true)
@@ -498,9 +504,16 @@ public class SolGryn : Boss_Info
     private IEnumerator I_OnDie()
     {
         GameObject.Find("Main Camera").GetComponent<UB.Simple2dWeatherEffects.Standard.D2FogsPE>().enabled = false;
-        GameObject.Find("Main Camera").GetComponent<Camera>().backgroundColor = Color.green;
         Flash(Color.white, 1, 2);
-        yield return Move_Straight(new Vector3(7, 5, 0), new Vector3(7, 0, 0), 10, OriginCurve);
+        yield return Move_Straight(new Vector3(7, 5, 0), new Vector3(7, 0, 0), 7, OriginCurve);
+        yield return Shake_Act(0.3f, 0.5f, 1, false);
+        My_Color = Color.clear;
+        GameObject f = Instantiate(SolGryn_Die_Particle, transform.position, Quaternion.identity);
+        f.transform.SetParent(transform);
+        Flash(Color.white, 0, 3);
+        yield return Camera_Shake_And_Wait(0.03f, 5, true, false);
+        yield return YieldInstructionCache.WaitForSeconds(2f);
+        spriteColor.Change_C(Color.black, 2);
         yield return null;
     }
     private void Boss_W1(float start_angle, int count, float range_angle, float speed, bool is_Blink)

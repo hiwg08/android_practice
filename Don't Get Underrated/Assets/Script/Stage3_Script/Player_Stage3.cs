@@ -280,7 +280,7 @@ public class Player_Stage3 : Player_Info
 
     private void Lazor_In_Second_Phase(GameObject weapon, Vector3 target, Vector3 self)
     {
-        Launch_Weapon(ref weapon, target - self, Quaternion.identity, 12, My_Position);
+        Launch_Weapon(ref weapon, target - self, Quaternion.identity, 90, My_Position);
     }
 
     IEnumerator Third_Phase(GameObject targetStudent_t)
