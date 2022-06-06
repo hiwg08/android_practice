@@ -15,8 +15,6 @@
 <img src="https://user-images.githubusercontent.com/91325459/172175879-73217b95-1c00-447d-94ad-3e86843997ba.gif" width="310" height="300" align="left"/>
 <img src="https://user-images.githubusercontent.com/91325459/172175910-71a90687-74d7-4539-abed-a04d49a17891.gif" width="310" height="300"/>
 
-<br> <br>
-
 <div align="center">[게임 내의 모습]</div>
 <br>
 게임의 재미가 배가 되도록 동국대학교를 테마로 제작한 게임입니다. 재미있게 즐겨주세요!
@@ -63,4 +61,5 @@ module.exports = { <br/>
 6. 6번에서의 cmd 창에서 npm start 명령어 입력(현재 port 넘버는 3000번이며, unity_server_main/server.js에서 port 넘버 변경 가능 (const port 부분에서 수정). VSCode에서 편리하게 명령어 입력 가능)
 
 ----------------------------
-문의 사항 : lateson@naver.com
+### 문의 사항
+lateson6@gmail.com
