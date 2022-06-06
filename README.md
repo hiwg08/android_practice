@@ -58,7 +58,7 @@ module.exports = { <br/>
 }
 <br><br>
 5. cmd 창에서 unity_server_main 폴더로 이동 후, npm install 명령어 입력(약간의 시간 소요)
-6. 6번에서의 cmd 창에서 npm start 명령어 입력(현재 port 넘버는 3000번이며, unity_server_main/server.js에서 port 넘버 변경 가능 (const port 부분에서 수정). VSCode에서 편리하게 명령어 입력 가능)
+6. 5번에서의 cmd 창에서 npm start 명령어 입력(현재 port 넘버는 3000번이며, unity_server_main/server.js에서 port 넘버 변경 가능 (const port 부분에서 수정). VSCode에서 편리하게 명령어 입력 가능)
 
 ----------------------------
 ### 문의 사항
