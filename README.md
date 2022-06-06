@@ -12,7 +12,7 @@
 
 <img src="https://user-images.githubusercontent.com/91325459/172173896-5a615380-3482-4964-82e7-3aa7a36e4418.gif" width="310" height="300" align="left"/>
 <img src="https://user-images.githubusercontent.com/91325459/172175836-8c6cb236-2ee8-48f9-9d73-9d494819176a.gif" width="310" height="300" align="left"/>
-<img src="https://user-images.githubusercontent.com/91325459/172175879-73217b95-1c00-447d-94ad-3e86843997ba.gif" width="310" height="300"/>
+<img src="https://user-images.githubusercontent.com/91325459/172175879-73217b95-1c00-447d-94ad-3e86843997ba.gif" width="310" height="300" align="left"/>
 <img src="https://user-images.githubusercontent.com/91325459/172175910-71a90687-74d7-4539-abed-a04d49a17891.gif" width="310" height="300" align="left"/>
 
 <div align="center">[게임 내의 모습]</div>
