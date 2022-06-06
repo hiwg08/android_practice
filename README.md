@@ -15,6 +15,8 @@
 <img src="https://user-images.githubusercontent.com/91325459/172175879-73217b95-1c00-447d-94ad-3e86843997ba.gif" width="310" height="300" align="left"/>
 <img src="https://user-images.githubusercontent.com/91325459/172175910-71a90687-74d7-4539-abed-a04d49a17891.gif" width="310" height="300" align="left"/>
 
+<br> <br>
+
 <div align="center">[게임 내의 모습]</div>
 <br>
 게임의 재미가 배가 되도록 동국대학교를 테마로 제작한 게임입니다. 재미있게 즐겨주세요!
