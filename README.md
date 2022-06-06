@@ -42,13 +42,18 @@
 https://github.com/himajin-no-tameiki/i-wanna-be-himawari
 </p>
 
+----------------------------
+### 개발을 위한 유니티 세팅
+1. Unity Hub 설치 후, 2020.3.33 LTS 버전을 이어서 다운로드 (버전이 다르면 실행이 안될 가능성이 높음)
+2. cmd 창을 열고 해당 프로젝트 파일을 받고 싶은 폴더로 이동 후, 'git clone https://github.com/CSID-DGU/2022-1-OSSP2-Bumeok_Jjikmeok-6.git <폴더 이름 아무거나>' 입력
+3. Unity Hub에서 clone한 폴더 내부에 있는 게임 프로젝트 폴더인 'Don't Get Underrated' 실행
+4. DOTween (HOTween v2) 무료 버전 다운로드 (https://assetstore.unity.com/packages/tools/animation/dotween-hotween-v2-27676) (유니티 에셋 스토어에서 제공)
 
 ----------------------------
 ### 개발을 위한 서버 구동 방법
-1. cmd 창을 열고 파일을 다운 받고 싶은 폴더로 이동 후, 'git clone https://github.com/CSID-DGU/2022-1-OSSP2-Bumeok_Jjikmeok-6.git <폴더 이름 아무거나>' 입력
-2. mysql을 설치하고 cmd 창을 하나 더 열어 본인의 mysql에 접속 (mysql -uroot -p -> mysql을 설치하면서 설정한 비밀번호 입력)
-3. (2번에서 연이어 진행) mysql에 접속된 cmd 창에서 "source (clone 폴더 경로)\unity_server_main\DB_info.sql" 명령어를 입력하여 데이터베이스 초기 세팅 (ex. source C:\Users\hiwg08\Desktop\2022-1-OSSP2-Bumeok_Jjikmeok-6\unity_server_main\DB_info.sql) **(DB_info.sql 파일은 unity_server_main 폴더 안에 존재. 4번 과정을 진행하는 시점에서는 DB_info.sql이 위치한 드라이브 == mysql이 설치된 드라이브여야 함. clone한 폴더의 위치는 상관 없음.)**
-4. unity_server_main/DB_info 디렉토리에서 "secret_OSSW_DB.js" 파일을 새로 생성한 후, mysql을 설치하면서 설정했던 정보를 입력. secret_OSSW_DB.js의 양식은 다음과 같음 <br/> <br/>
+1. mysql을 설치하고 cmd 창을 하나 더 열어 본인의 mysql에 접속 (mysql -uroot -p -> mysql을 설치하면서 설정한 비밀번호 입력)
+2. (1번에서 연이어 진행) mysql에 접속된 cmd 창에서 "source (clone 폴더 경로)\unity_server_main\DB_info.sql" 명령어를 입력하여 데이터베이스 초기 세팅 (ex. source C:\Users\hiwg08\Desktop\2022-1-OSSP2-Bumeok_Jjikmeok-6\unity_server_main\DB_info.sql) **(DB_info.sql 파일은 unity_server_main 폴더 안에 존재. 4번 과정을 진행하는 시점에서는 DB_info.sql이 위치한 드라이브 == mysql이 설치된 드라이브여야 함. clone한 폴더의 위치는 상관 없음.)**
+3. unity_server_main/DB_info 디렉토리에서 "secret_OSSW_DB.js" 파일을 새로 생성한 후, mysql을 설치하면서 설정했던 정보를 입력. secret_OSSW_DB.js의 양식은 다음과 같음 <br/> <br/>
 module.exports = { <br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; host: 127.0.0.1, <br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; user: (mysql의 user 이름), <br/>
@@ -57,8 +62,8 @@ module.exports = { <br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; port: (mysql의 port 넘버) <br/>
 }
 <br><br>
-5. cmd 창에서 unity_server_main 폴더로 이동 후, npm install 명령어 입력(약간의 시간 소요)
-6. 5번에서의 cmd 창에서 npm start 명령어 입력(현재 port 넘버는 3000번이며, unity_server_main/server.js에서 port 넘버 변경 가능 (const port 부분에서 수정). VSCode에서 편리하게 명령어 입력 가능)
+4. cmd 창에서 unity_server_main 폴더로 이동 후, npm install 명령어 입력(약간의 시간 소요)
+5. 4번에서의 cmd 창에서 npm start 명령어 입력(현재 port 넘버는 3000번이며, unity_server_main/server.js에서 port 넘버 변경 가능 (const port 부분에서 수정). VSCode에서 편리하게 명령어 입력 가능)
 
 ----------------------------
 ### 문의 사항
