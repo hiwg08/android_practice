@@ -955,7 +955,7 @@ Transform:
   m_LocalScale: {x: 23.87883, y: 15.422259, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &531271967
 GameObject:
@@ -1380,7 +1380,7 @@ Transform:
   - {fileID: 1433264329}
   - {fileID: 270855210}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &795915747
 GameObject:
@@ -1394,7 +1394,7 @@ GameObject:
   - component: {fileID: 795915748}
   - component: {fileID: 795915750}
   m_Layer: 0
-  m_Name: Jebal
+  m_Name: Total_Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1463,7 +1463,7 @@ Transform:
   m_LocalScale: {x: 23.87883, y: 15.422259, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &795915750
 MonoBehaviour:
@@ -2001,7 +2001,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1338799980
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2030,7 +2030,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1384985797
 GameObject:
@@ -5482,7 +5482,7 @@ GameObject:
   - component: {fileID: 1770839861}
   - component: {fileID: 1770839858}
   m_Layer: 0
-  m_Name: SolGryn
+  m_Name: Boss
   m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

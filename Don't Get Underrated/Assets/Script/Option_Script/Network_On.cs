@@ -50,6 +50,13 @@ public class Network_On : MonoBehaviour
 
     protected IEnumerator Network_Check_Infinite()
     {
+        Player_Info player_info = null;
+        Boss_Info boss_info = null;
+        if (GameObject.Find("Player") && GameObject.Find("Player").TryGetComponent(out Player_Info PS_3))
+            player_info = PS_3;
+        if (GameObject.Find("Boss") && GameObject.Find("Boss").TryGetComponent(out Boss_Info BI))
+            boss_info  = BI;
+
         while (true)
         {
             singleTone.request = UnityWebRequest.Get("http://localhost:3000/continue_connect");
@@ -64,9 +71,15 @@ public class Network_On : MonoBehaviour
                 (singleTone.request.result == UnityWebRequest.Result.ProtocolError) ||
                 (singleTone.request.result == UnityWebRequest.Result.DataProcessingError))
             {
+                if (player_info != null)
+                    player_info.Stop_When_Network_Stop();
+                if (boss_info != null)
+                    boss_info.Stop_When_Network_Stop();
+
                 Time.timeScale = 0;
                 Network_Off.SetActive(true);
-                ErrorMessage.text = singleTone.request.error + '\n' + singleTone.request.downloadHandler.text;
+                ErrorMessage.text = singleTone.request.error + '\n' + singleTone.request.downloadHandler.text + '\n';
+                ErrorMessage.text += "서버가 끊겼거나 로그인 상태가 아닙니다.\n 게임을 종료합니다.";
                 yield break;
             }
             else
@@ -74,9 +87,14 @@ public class Network_On : MonoBehaviour
                 Log_Message d = JsonUtility.FromJson<Log_Message>(singleTone.request.downloadHandler.text);
                 if (singleTone.id != d.user_info)
                 {
+                    if (player_info != null)
+                        player_info.Stop_When_Network_Stop();
+                    if (boss_info != null)
+                        boss_info.Stop_When_Network_Stop();
+
                     Time.timeScale = 0;
                     Network_Off.SetActive(true);
-                    ErrorMessage.text = "계정 정보가 틀리거나 서버가 끊겼습니다.";
+                    ErrorMessage.text = "계정 정보가 틀리거나 서버가 끊겼습니다.\n 게임을 종료합니다.";
                     yield break;
                 }
             }
@@ -100,6 +118,7 @@ public class Network_On : MonoBehaviour
         if (spriteColor != null)
         {
             yield return spriteColor.StartCoroutine(spriteColor.Change_Color_Real_Time(Color.black, 2));
+            Time.timeScale = 1;
             SceneManager.LoadScene("LoginScene");
         }
         else

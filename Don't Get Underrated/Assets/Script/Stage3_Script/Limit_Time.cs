@@ -29,7 +29,7 @@ public class Limit_Time : MonoBehaviour // 제한 시간에 대한 스크립트. 게임의 종�
     {
         Limit_Time_Text = GetComponent<TextMeshProUGUI>();
         image = GameObject.Find("Flash_TimeOut").GetComponent<Image>();
-        if (GameObject.Find("Jebal") && GameObject.Find("Jebal").TryGetComponent(out SpriteColor s1))
+        if (GameObject.Find("Total_Sprite") && GameObject.Find("Total_Sprite").TryGetComponent(out SpriteColor s1))
             spriteColor = s1;
         flashOn = image.GetComponent<ImageColor>();
         flash_on = null;

@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 78599745}
   - component: {fileID: 78599744}
   m_Layer: 0
-  m_Name: Jebal
+  m_Name: Total_Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5621,8 +5621,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 56}
-  m_SizeDelta: {x: 400, y: 50}
+  m_AnchoredPosition: {x: 0, y: 54.06}
+  m_SizeDelta: {x: 400, y: 53.88}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &312642156
 MonoBehaviour:
@@ -7957,7 +7957,7 @@ Transform:
   - {fileID: 718950311}
   - {fileID: 708991418}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1234857992
 GameObject:
@@ -12762,7 +12762,7 @@ Transform:
   m_Children:
   - {fileID: 175478254}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &1263846445
 GameObject:
@@ -14491,7 +14491,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1734084789
 Transform:
   m_ObjectHideFlags: 0
@@ -14504,7 +14504,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1734084790
 MonoBehaviour:

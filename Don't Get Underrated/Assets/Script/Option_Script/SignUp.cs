@@ -26,6 +26,8 @@ public class SignUp : MonoBehaviour
     [SerializeField]
     GameObject Popup_X;
 
+    IEnumerator wait_load;
+
     private void Awake()
     {
         Popup.SetActive(false);
@@ -129,7 +131,8 @@ public class SignUp : MonoBehaviour
     }
     IEnumerator Show_Total_Ranking_For_Login()
     {
-        IEnumerator wait_load = Wait_Load();
+        Popup_X.SetActive(false);
+        wait_load = Wait_Load();
         StartCoroutine(wait_load);
 
         singleTone.request = UnityWebRequest.Get("http://localhost:3000/get_rank_total_login");
@@ -141,11 +144,13 @@ public class SignUp : MonoBehaviour
             (singleTone.request.result == UnityWebRequest.Result.ProtocolError) ||
             (singleTone.request.result == UnityWebRequest.Result.DataProcessingError))
         {
+            Popup_X.SetActive(true);
             infoText.color = Color.red;
             infoText.text = singleTone.request.error + '\n' + singleTone.request.downloadHandler.text;
         }
         else
         {
+            Popup_X.SetActive(true);
             Ranking_Total_Up d = JsonUtility.FromJson<Ranking_Total_Up>(singleTone.request.downloadHandler.text);
 
             int Index = 0;
@@ -176,7 +181,8 @@ public class SignUp : MonoBehaviour
     }
     IEnumerator Show_Total_Ranking_For_Not_Login()
     {
-        IEnumerator wait_load = Wait_Load();
+        Popup_X.SetActive(false);
+        wait_load = Wait_Load();
         StartCoroutine(wait_load);
 
         singleTone.request = UnityWebRequest.Get("http://localhost:3000/get_rank_total_not_login");
@@ -188,11 +194,13 @@ public class SignUp : MonoBehaviour
             (singleTone.request.result == UnityWebRequest.Result.ProtocolError) ||
             (singleTone.request.result == UnityWebRequest.Result.DataProcessingError))
         {
+            Popup_X.SetActive(true);
             infoText.color = Color.red;
             infoText.text = singleTone.request.error + '\n' + singleTone.request.downloadHandler.text;
         }
         else
         {
+            Popup_X.SetActive(true);
             Ranking_Total_Up d = JsonUtility.FromJson<Ranking_Total_Up>(singleTone.request.downloadHandler.text);
             Debug.Log(singleTone.request.downloadHandler.text);
             Debug.Log("ÀüÃ¼ ·©Å· : ");
@@ -207,7 +215,8 @@ public class SignUp : MonoBehaviour
     }
     IEnumerator Show_Detail_Ranking_For_Not_Login(int Params)
     {
-        IEnumerator wait_load = Wait_Load();
+        Popup_X.SetActive(false);
+        wait_load = Wait_Load();
         StartCoroutine(wait_load);
 
         WWWForm form = new WWWForm();
@@ -222,11 +231,13 @@ public class SignUp : MonoBehaviour
             (singleTone.request.result == UnityWebRequest.Result.ProtocolError) ||
             (singleTone.request.result == UnityWebRequest.Result.DataProcessingError))
         {
+            Popup_X.SetActive(true);
             infoText.color = Color.red;
             infoText.text = singleTone.request.error + '\n' + singleTone.request.downloadHandler.text;
         }
         else
         {
+            Popup_X.SetActive(true);
             infoText.text = "";
             Dictionary<string, int> dic = new Dictionary<string, int>();
             if (Params == 0)
@@ -339,8 +350,9 @@ public class SignUp : MonoBehaviour
     }
     IEnumerator Show_Detail_Ranking_For_Login(int Params)
     {
-        //IEnumerator wait_load = Wait_Load();
-        ///StartCoroutine(wait_load);
+        Popup_X.SetActive(false);
+        wait_load = Wait_Load();
+        StartCoroutine(wait_load);
 
         WWWForm form = new WWWForm();
         form.AddField("identifier", Params);
@@ -348,18 +360,20 @@ public class SignUp : MonoBehaviour
         singleTone.request = UnityWebRequest.Post("http://localhost:3000/get_rank_detail_login", form);
         yield return singleTone.request.SendWebRequest();
 
-        //StopCoroutine(wait_load);
+        StopCoroutine(wait_load);
 
 
         if ((singleTone.request.result == UnityWebRequest.Result.ConnectionError) ||
             (singleTone.request.result == UnityWebRequest.Result.ProtocolError) ||
             (singleTone.request.result == UnityWebRequest.Result.DataProcessingError))
         {
+            Popup_X.SetActive(true);
             infoText.color = Color.red;
             infoText.text = singleTone.request.error + '\n' + singleTone.request.downloadHandler.text;
         }
         else
         {
+            Popup_X.SetActive(true);
             infoText.text = "";
             Dictionary<string, int> dic = new Dictionary<string, int>();
             int My_Rank = 0;
@@ -545,8 +559,9 @@ public class SignUp : MonoBehaviour
     IEnumerator SignUp_Behave()
     {
         Popup.SetActive(true);
+        Popup_X.SetActive(false);
 
-        IEnumerator wait_load = Wait_Load();
+        wait_load = Wait_Load();
         StartCoroutine(wait_load);
 
         WWWForm form = new WWWForm();
@@ -564,11 +579,13 @@ public class SignUp : MonoBehaviour
             (www.result == UnityWebRequest.Result.ProtocolError) ||
             (www.result == UnityWebRequest.Result.DataProcessingError))
         {
+            Popup_X.SetActive(true);
             infoText.color = Color.red;
             infoText.text = www.error + '\n' + www.downloadHandler.text;
         }
         else
         {
+            Popup_X.SetActive(true);
             if (www.downloadHandler.text == "null")
             {
                 infoText.color = Color.red;

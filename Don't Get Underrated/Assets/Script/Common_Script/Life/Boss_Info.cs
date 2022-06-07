@@ -196,4 +196,8 @@ public class Boss_Info : Life
             yield return null;
         }
     }
+    public override void Stop_When_Network_Stop()
+    {
+        base.Stop_When_Network_Stop();
+    }
 }
