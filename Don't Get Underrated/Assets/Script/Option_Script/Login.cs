@@ -22,11 +22,21 @@ public class Login : MonoBehaviour
     [SerializeField]
     GameObject X_Button;
 
-    IEnumerator wait_load;
     private void Awake()
     {
+        singleTone.request = null;
+        singleTone.main_stage_1_score = 0;
+        singleTone.main_stage_2_score = 0;
+        singleTone.main_stage_3_score = 0;
+        singleTone.final_stage_1_score = 0;
+        singleTone.final_stage_2_score = 0;
+
         singleTone.id = "";
-        wait_load = null;
+        singleTone.ESC_On = true;
+        singleTone.EasterEgg = false;
+        singleTone.Music_Volume = 1;
+        singleTone.Music_Decrease = true;
+
     }
     [System.Serializable]
     public class UserInfo
@@ -50,6 +60,7 @@ public class Login : MonoBehaviour
     }
     public void ButtonClick(int param)
     {
+        StopAllCoroutines();
         infoText.text = "";
         if (param == 0)
             StartCoroutine(Server_Login());
@@ -58,6 +69,7 @@ public class Login : MonoBehaviour
     }
     public void GameStart()
     {
+        StopAllCoroutines();
         infoText.text = "";
         StartCoroutine(GameStart_Behave());
     }
@@ -65,7 +77,8 @@ public class Login : MonoBehaviour
     {
         Popup.SetActive(true);
         X_Button.SetActive(false);
-        wait_load = Wait_Load();
+
+        IEnumerator wait_load = Wait_Load();
         StartCoroutine(wait_load);
 
         singleTone.request = UnityWebRequest.Get("http://localhost:3000/log_out");
@@ -92,7 +105,7 @@ public class Login : MonoBehaviour
         Popup.SetActive(true);
         X_Button.SetActive(false);
 
-        wait_load = Wait_Load();
+        IEnumerator wait_load = Wait_Load();
         StartCoroutine(wait_load);
 
         WWWForm form = new WWWForm();
@@ -129,7 +142,7 @@ public class Login : MonoBehaviour
         Popup.SetActive(true);
         X_Button.SetActive(false);
 
-        wait_load = Wait_Load();
+        IEnumerator wait_load = Wait_Load();
         StartCoroutine(wait_load);
 
         singleTone.request = UnityWebRequest.Get("http://localhost:3000/continue_connect");
@@ -153,7 +166,7 @@ public class Login : MonoBehaviour
             {
                 X_Button.SetActive(true);
                 infoText.color = Color.red;
-                infoText.text = "계정 정보가 틀리거나 서버가 끊겼습니다.";
+                infoText.text = "로그 아웃 후 다시 로그인을 시도해주세요!";
             }
             else
             {
@@ -161,9 +174,10 @@ public class Login : MonoBehaviour
                 infoText.color = Color.blue;
                 infoText.text = "게임을 시작합니다!";
                 yield return YieldInstructionCache.WaitForSeconds(1);
-                LoadingProgress.LoadScene("Stage3");
+                LoadingProgress.LoadScene(3);
                 yield break;
             }
+
         }
         yield break;
     }
