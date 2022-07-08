@@ -6,13 +6,13 @@
    <Button
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
-       android:text="BUTTON1"
+       android:text="BUTTON3"
        android:backgroundTint="#0000ff"
        android:padding="30dp"/>
    <Button
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
-       android:text="BUTTON2"
+       android:text="BUTTON4"
        android:paddingBottom="50dp"
        android:layout_marginLeft="50dp"/>
 </LinearLayout>
